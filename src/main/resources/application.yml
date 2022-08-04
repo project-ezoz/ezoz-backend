@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url:  jdbc:mariadb://localhost:3306/ezoz_backend_dev?serverTimezone=Asia/Seoul
-    username: root
-    password: 1234
+    url:  ENC(QZqs66Gt+IofFw3JzW0mvPfIjXQO4vH7ktgFiKTNHAMrxNH1dJ2ldsxl3w3m7GhVHyLTNaUvsmoN7c0CRwIksMjo6tYsMMwXEo62TwGBbKVi0qnAumLnAg==)
+    username: ENC(ZSXs63xTx7iXjsU0xNoESg==)
+    password: ENC(FKxdYkpkhHNHlTkEppBCpg==)
     driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:
