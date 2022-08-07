@@ -1,11 +1,11 @@
 name: project-ezoz-api
 
-env:
-  EZOZ_JASYPT_PASSWORD: ${{ secrets.EZOZ_JASYPT_PASSWORD }}
-  
 on:
   push:
     branches: [ dev ]
+    
+env:
+  EZOZ_JASYPT_PASSWORD: ${{ secrets.EZOZ_JASYPT_PASSWORD }}
 
 #   workflow_dispatch:
 #     inputs:
