@@ -71,8 +71,8 @@ jobs:
       - name: Build and push to DockerHub
         uses: docker/build-push-action@v2
         with:
-          context: ./project-ezoz-api
-          file: ./project-ezoz-api/Dockerfile
+          context: ./ezoz-backend
+          file: ./ezoz-backend/Dockerfile
           platforms: linux/amd64
           push: true
           tags: ${{ secrets.DOCKER_TAG }}
