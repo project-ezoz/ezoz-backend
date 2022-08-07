@@ -1,0 +1,14 @@
+name: workflows test
+
+on:
+  push:
+    branches: [ dev ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        run: echo ${{TEST_SECRET}}   
