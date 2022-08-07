@@ -75,7 +75,7 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: ${{ secrets.DOCKER_TAG }}
-
+ 
   deploy:
     needs: build
     name: Deploy
