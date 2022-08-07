@@ -75,7 +75,7 @@ jobs:
           file: ./ezoz-backend/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ secrets.DOCKER_TAG }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
  
   deploy:
     needs: build
