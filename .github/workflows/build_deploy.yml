@@ -46,15 +46,15 @@ jobs:
 #       - name: do Integration test
 #         run: EZOZ_JASYPT_PASSWORD=${{ secrets.EZOZ_JASYPT_PASSWORD }} ./gradlew clean integrationTest
 
-      - name: cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+#       - name: cache
+#         uses: actions/cache@v2
+#         with:
+#           path: |
+#             ~/.gradle/caches
+#             ~/.gradle/wrapper
+#           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+#           restore-keys: |
+#             ${{ runner.os }}-gradle-
             
       - name: Build with Gradle
         run: ./gradlew clean build --exclude-task test --stacktrace -info
@@ -71,8 +71,8 @@ jobs:
       - name: Build and push to DockerHub
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./project-ezoz-api
+          file: ./project-ezoz-api/Dockerfile
           platforms: linux/amd64
           push: true
           tags: ${{ secrets.DOCKER_TAG }}
