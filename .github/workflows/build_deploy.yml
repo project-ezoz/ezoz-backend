@@ -3,7 +3,7 @@ name: project-ezoz-api
 on:
   push:
     branches: [ dev ]
-    
+
 env:
   EZOZ_JASYPT_PASSWORD: ${{ secrets.EZOZ_JASYPT_PASSWORD }}
 
