@@ -40,9 +40,6 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: do Integration test
-        run: EZOZ_JASYPT_PASSWORD=${{ secrets.EZOZ_JASYPT_PASSWORD }} ./gradlew clean integrationTest
-
       - name: cache
         uses: actions/cache@v2
         with:
