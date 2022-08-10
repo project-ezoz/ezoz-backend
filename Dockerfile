@@ -1,5 +1,7 @@
-FROM openjdk:11-jre
+FROM openjdk:11 as build
 
-COPY build/libs/ezoz-backend-0.0.1-SNAPSHOT.jar app.jar
+ARG JAR_FILE=build/libs/*.jar
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+COPY ${JAR_FILE} app.jar
+
+ENTRYPOINT ["java","-jar","/app.jar"]
