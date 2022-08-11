@@ -1,4 +1,4 @@
-package ezoz.backend_ezoz.domain.entity;
+package ezoz.backend_ezoz.domain.member.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
