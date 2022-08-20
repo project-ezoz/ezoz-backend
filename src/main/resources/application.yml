@@ -21,7 +21,7 @@ logging:
     org.hibernate.type: trace
 
 token:
-  secret: ENC(s78SrucauktTX6Qgyq8ljRrLzEj6jpoVV9ZaQXu9uh0h0prFBJmxyg==)
+  secret: ENC(Ztv55s1o0xbnya4L2Vd49qvG//ZwQnXq/7LNQHK9WgOT+09SjtTZ5/xiCyNTDUDiSqiA17scxrFM+WdGLD/eygXePTh5Seej)
   access-token-expiration-time: 900000  # 15분
   refresh-token-expiration-time: 1210500000 # 2주
 
