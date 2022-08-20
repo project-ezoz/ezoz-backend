@@ -19,3 +19,13 @@ spring:
 logging:
   level:
     org.hibernate.type: trace
+
+token:
+  secret: ENC(s78SrucauktTX6Qgyq8ljRrLzEj6jpoVV9ZaQXu9uh0h0prFBJmxyg==)
+  access-token-expiration-time: 900000  # 15분
+  refresh-token-expiration-time: 1210500000 # 2주
+
+kakao:
+  client:
+    secret: ENC(N6+HkEQYPbZOCOheCuFKjKLZ7Gso0ao5257sElwatNi4duwuCFMf7/KhJMqoJq+0)
+    id: ENC(nGZvGw2HBsTGYnigBjQ6JKpbwpeNNVFTXLiX23QqrU1GXCfAKnwvRtLVQa8LblYT)
