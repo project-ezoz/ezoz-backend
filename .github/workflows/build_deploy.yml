@@ -62,5 +62,5 @@ jobs:
     steps:
       - name: Docker run
         run: |
-            docker stop ezoz && docker rm ezoz && docker rmi ${{ secrets.DOCKER_TAG }}
+            docker stop ezoz && docker rm ezoz && docker rmi ezoz90563/project-ezoz-api:latest
             docker run -d -p 80:8080 -e EZOZ_JASYPT_PASSWORD=${{ secrets.EZOZ_JASYPT_PASSWORD }} --name ezoz ${{ secrets.DOCKER_TAG }}
