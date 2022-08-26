@@ -25,9 +25,11 @@ public class Member {
     @Column(nullable = false, length = 20)
     private String memberName;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MemberRole memberRole;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MemberType memberType;
 

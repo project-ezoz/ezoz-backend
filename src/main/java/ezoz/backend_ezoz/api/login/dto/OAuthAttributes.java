@@ -18,6 +18,8 @@ public class OAuthAttributes {
                 .email(email)
                 .memberName(memberName)
                 .memberType(memberType)
+                .memberRole(MemberRole.USER)
                 .build();
     }
+
 }

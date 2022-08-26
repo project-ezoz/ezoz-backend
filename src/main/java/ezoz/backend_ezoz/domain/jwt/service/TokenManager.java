@@ -64,7 +64,6 @@ public class TokenManager {
         return new Date(System.currentTimeMillis() + Long.parseLong(refreshTokenExpirationTime));
     }
 
-    // TODO username 에서 어떤 것으로 바뀔 수 있음
     public String createAccessToken(String email, MemberRole role, Date expirationTime) {
 
         String accessToken = Jwts.builder()
@@ -112,16 +111,18 @@ public class TokenManager {
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(token);
-        } catch (MalformedJwtException e) {
-            log.info("잘못된 jwt token");
-        } catch (SecurityException e) {
-            log.info("잘못된 jwt signature");
+        } catch (MalformedJwtException | SecurityException e) {
+            log.error("잘못된 jwt token");
+            throw new NotValidTokenException(ErrorCode.INVALID_TOKEN_SIGNATURE);
         } catch (ExpiredJwtException e) {
-            log.info("만료된 jwt token");
+            log.error("만료된 jwt token");
+            throw new NotValidTokenException(ErrorCode.TOKEN_EXPIRED);
         } catch (UnsupportedJwtException e) {
-            log.info("지원하지 않는 jwt token");
+            log.error("지원하지 않는 jwt token");
+            throw new NotValidTokenException(ErrorCode.UNSUPPORTED_TOKEN);
         } catch (IllegalArgumentException e) {
-            log.info("잘못된 jwt token");
+            log.error("잘못된 jwt token");
+            throw new NotValidTokenException(ErrorCode.NOT_VALID_TOKEN);
         }
     }
 

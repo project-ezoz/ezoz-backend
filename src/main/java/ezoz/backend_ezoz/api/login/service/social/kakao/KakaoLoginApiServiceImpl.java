@@ -17,11 +17,12 @@ import java.util.Map;
 public class KakaoLoginApiServiceImpl implements SocialLoginApiService {
 
     private final KakaoFeignClient kakaoFeignClient;
+    private final String CONTENT_TYPE = "application/x-www-form-urlencoded;charset=utf-8";
     private final String PROPERTY_NICKNAME = "nickname";
 
     @Override
-    public OAuthAttributes getUserInfo(String accessToken) {
-        KakaoUserInfo kakaoUserInfo = kakaoFeignClient.getKakaoUserInfo(accessToken);
+    public OAuthAttributes getUserInfo(String authorizationHeader) {
+        KakaoUserInfo kakaoUserInfo = kakaoFeignClient.getKakaoUserInfo(CONTENT_TYPE, authorizationHeader);
 
         String email = kakaoUserInfo.getKakaoAccount().getEmail();
 

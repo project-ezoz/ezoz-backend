@@ -26,11 +26,10 @@ public class LoginService {
     private final MemberService memberService;
     private final TokenManager tokenManager;
 
-
     @Transactional
-    public OauthLoginDto.Response loginOauth(String accessToken, MemberType memberType) {
+    public OauthLoginDto.Response loginOauth(String authorizationHeader, MemberType memberType) {
 
-        OAuthAttributes socialUserInfo = getSocialUserInfo(accessToken, memberType);
+        OAuthAttributes socialUserInfo = getSocialUserInfo(authorizationHeader, memberType);
 
         Member member = memberService.findByEmail(socialUserInfo.getEmail())
                 .orElseGet(() -> registerMember(socialUserInfo, memberType));

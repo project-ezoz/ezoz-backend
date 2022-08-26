@@ -12,5 +12,7 @@ public class LoginValidator {
         if (!MemberType.isMemberType(memberType)) {
             throw new InvalidValueException(ErrorCode.INVALID_MEMBER_TYPE);
         }
+
+
     }
 }

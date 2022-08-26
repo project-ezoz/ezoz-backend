@@ -1,5 +1,10 @@
 package ezoz.backend_ezoz.global.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import ezoz.backend_ezoz.domain.jwt.service.TokenManager;
+import ezoz.backend_ezoz.global.filter.ExceptionHandlerFilter;
+import ezoz.backend_ezoz.global.filter.JwtAuthenticationFilter;
+import ezoz.backend_ezoz.global.validator.AuthenticationValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,15 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtSecurityConfig jwtSecurityConfig;
+    private final AuthenticationValidator authenticationValidator;
+    private final TokenManager tokenManager;
+    private final ObjectMapper objectMapper;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests((authz) -> authz
-                        .antMatchers("/login", "/api/**").permitAll()
-                        .anyRequest().authenticated()
-                )
                 .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, authException) ->
@@ -33,16 +37,17 @@ public class SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .apply(jwtSecurityConfig);
+                .addFilterBefore(new JwtAuthenticationFilter(authenticationValidator, tokenManager),
+                        UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new ExceptionHandlerFilter(objectMapper), JwtAuthenticationFilter.class);
 
-        // TODO exceptionHandlerFilter 작성해야 함.
 
         return http.build();
     }
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/swagger-ui/**");
+        return (web) -> web.ignoring().antMatchers("/login", "/api/oauth/login", "/auth/kakao/callback");
     }
 
 }

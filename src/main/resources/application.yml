@@ -21,11 +21,11 @@ logging:
     org.hibernate.type: trace
 
 token:
-  secret: ENC(Ztv55s1o0xbnya4L2Vd49qvG//ZwQnXq/7LNQHK9WgOT+09SjtTZ5/xiCyNTDUDiSqiA17scxrFM+WdGLD/eygXePTh5Seej)
+  secret: ENC(lDOPPFP+MfO0vqmgDit4eh5IqSaI496Up23uqnvldVOhbpcqgNiSVtvyxsEQkhqOWtg/ZaguUE/J+pHkx5rMSAXORW4EAbV/mCUEBQ8bY4aKrZmreJviie8ZGYjzKDE5IFFVMcbxxiVzUqSg5Fuajg==)
   access-token-expiration-time: 900000  # 15분
   refresh-token-expiration-time: 1210500000 # 2주
 
 kakao:
   client:
-    secret: ENC(N6+HkEQYPbZOCOheCuFKjKLZ7Gso0ao5257sElwatNi4duwuCFMf7/KhJMqoJq+0)
-    id: ENC(nGZvGw2HBsTGYnigBjQ6JKpbwpeNNVFTXLiX23QqrU1GXCfAKnwvRtLVQa8LblYT)
+    secret: ENC(B+UHkjDDMf3BBzsVcbGvM21DTyuXorOiGF+kUVqtR45vugBoEIyGNo43O6lYgtJ6)
+    id: ENC(y4WHYqeOsIIVP5kn0yCeSrfJceGTj5Qj6AXluMz5Q2V7DF8/618hZXE3ITRgadFk)

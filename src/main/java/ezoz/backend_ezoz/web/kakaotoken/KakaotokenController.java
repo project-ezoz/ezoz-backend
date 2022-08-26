@@ -24,18 +24,16 @@ public class KakaotokenController {
     private final String REDIRECT_URI = "http://localhost:8080/auth/kakao/callback";
 
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "loginForm";
     }
 
     @GetMapping("/auth/kakao/callback")
     public @ResponseBody
-    String loginCallback(String code){
+    String loginCallback(String code) {
 
-        KakaoTokenRequestDto kakaoTokenRequestDto =
-                KakaoTokenRequestDto.of(code, clientId, clientSecret, CONTENT_TYPE, GRANT_TYPE, REDIRECT_URI);
-
-        ResponseEntity<KakaoTokenResponseDto> kakaoToken = kakaoTokenClient.getKakaoToken(kakaoTokenRequestDto);
+        ResponseEntity<KakaoTokenResponseDto> kakaoToken = kakaoTokenClient.getKakaoToken(CONTENT_TYPE,
+                GRANT_TYPE, clientId, REDIRECT_URI, code, clientSecret);
 
         return "kakao token : " + kakaoToken;
 
