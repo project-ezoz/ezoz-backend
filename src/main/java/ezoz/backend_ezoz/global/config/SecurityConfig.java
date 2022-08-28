@@ -1,7 +1,7 @@
 package ezoz.backend_ezoz.global.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ezoz.backend_ezoz.domain.jwt.service.TokenManager;
+import ezoz.backend_ezoz.global.jwt.TokenManager;
 import ezoz.backend_ezoz.global.filter.ExceptionHandlerFilter;
 import ezoz.backend_ezoz.global.filter.JwtAuthenticationFilter;
 import ezoz.backend_ezoz.global.validator.AuthenticationValidator;

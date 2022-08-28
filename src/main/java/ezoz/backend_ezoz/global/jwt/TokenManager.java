@@ -1,4 +1,4 @@
-package ezoz.backend_ezoz.domain.jwt.service;
+package ezoz.backend_ezoz.global.jwt;
 
 import ezoz.backend_ezoz.domain.jwt.constant.GrantType;
 import ezoz.backend_ezoz.domain.jwt.constant.TokenType;
@@ -6,6 +6,7 @@ import ezoz.backend_ezoz.domain.jwt.entity.Token;
 import ezoz.backend_ezoz.global.error.exception.jwt.NotValidTokenException;
 import ezoz.backend_ezoz.domain.member.constant.MemberRole;
 import ezoz.backend_ezoz.global.error.exception.ErrorCode;
+import ezoz.backend_ezoz.global.util.DateTimeUtils;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Service
@@ -38,24 +40,6 @@ public class TokenManager {
 
     }
 
-    public Token createToken(String email, MemberRole memberRole) {
-
-        Date accessTokenExpireTime = createAccessTokenExpireTime();
-        Date refreshTokenExpireTime = createRefreshTokenExpireTime();
-
-        String accessToken = createAccessToken(email, memberRole, accessTokenExpireTime);
-        String refreshToken = createRefreshToken(email, refreshTokenExpireTime);
-
-        return Token.builder().
-                grantType(GrantType.BEARRER.getType())
-                .accessToken(accessToken)
-                .accessTokenExpireTime(accessTokenExpireTime)
-                .refreshToken(refreshToken)
-                .refreshTokenExpireTime(refreshTokenExpireTime)
-                .build();
-
-    }
-
     public Date createAccessTokenExpireTime() {
         return new Date(System.currentTimeMillis() + Long.parseLong(accessTokenExpirationTime));
     }
@@ -64,13 +48,13 @@ public class TokenManager {
         return new Date(System.currentTimeMillis() + Long.parseLong(refreshTokenExpirationTime));
     }
 
-    public String createAccessToken(String email, MemberRole role, Date expirationTime) {
+    public String createAccessToken(String email, MemberRole role) {
 
         String accessToken = Jwts.builder()
                 .setSubject(TokenType.ACCESS.name())                // 토큰 제목
                 .setAudience(email)                                 // 토큰 대상자
                 .setIssuedAt(new Date())                            // 토큰 발급 시간
-                .setExpiration(expirationTime)                      // 토큰 만료 시간
+                .setExpiration(createAccessTokenExpireTime())       // 토큰 만료 시간
                 .claim("role", role)                          // 유저 role
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setHeaderParam("typ", "JWT")
@@ -79,20 +63,29 @@ public class TokenManager {
         return accessToken;
     }
 
-    public String createRefreshToken(String email, Date expirationTime) {
+    public Token createRefreshToken(String email, MemberRole role) {
+
+        Date refreshTokenExpireTime = createRefreshTokenExpireTime();
+
         String refreshToken = Jwts.builder()
                 .setSubject(TokenType.REFRESH.name())               // 토큰 제목
                 .setAudience(email)                                 // 토큰 대상자
                 .setIssuedAt(new Date())                            // 토큰 발급 시간
-                .setExpiration(expirationTime)                      // 토큰 만료 시간
+                .setExpiration(refreshTokenExpireTime)              // 토큰 만료 시간
+                .claim("role", role)                          // 유저 role
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setHeaderParam("typ", "JWT")
                 .compact();
 
-        return refreshToken;
+        LocalDateTime localDateTime = DateTimeUtils.convertToLocalDateTime(refreshTokenExpireTime);
+
+        return Token.builder()
+                .refreshToken(refreshToken)
+                .refreshTokenExpireTime(localDateTime)
+                .build();
     }
 
-    public String getMemberUsername(String token) {
+    public String getEmail(String token) {
         try {
             return Jwts.parserBuilder()
                     .setSigningKey(key)
@@ -100,7 +93,6 @@ public class TokenManager {
                     .parseClaimsJws(token)
                     .getBody().getAudience();
         } catch (Exception e) {
-            e.printStackTrace();
             throw new NotValidTokenException(ErrorCode.NOT_VALID_TOKEN);
         }
     }

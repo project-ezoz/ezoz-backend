@@ -25,4 +25,8 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    public Optional<Member> findByEmailFetchToken(String email) {
+        return memberRepository.findByEmailFetchToken(email);
+    }
+
 }

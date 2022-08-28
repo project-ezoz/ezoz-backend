@@ -1,6 +1,5 @@
 package ezoz.backend_ezoz.api.login.dto;
 
-import ezoz.backend_ezoz.domain.jwt.entity.Token;
 import lombok.*;
 
 public class OauthLoginDto {
@@ -20,10 +19,10 @@ public class OauthLoginDto {
 
         private String refreshToken;
 
-        public static OauthLoginDto.Response from(Token token) {
+        public static OauthLoginDto.Response of(String accessToken, String refreshToken) {
             return OauthLoginDto.Response.builder()
-                    .accessToken(token.getAccessToken())
-                    .refreshToken(token.getRefreshToken())
+                    .accessToken(accessToken)
+                    .refreshToken(refreshToken)
                     .build();
         }
 

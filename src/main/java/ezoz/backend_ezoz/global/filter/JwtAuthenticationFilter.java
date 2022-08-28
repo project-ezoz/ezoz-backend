@@ -1,9 +1,8 @@
 package ezoz.backend_ezoz.global.filter;
 
-import ezoz.backend_ezoz.domain.jwt.service.TokenManager;
+import ezoz.backend_ezoz.global.jwt.TokenManager;
 import ezoz.backend_ezoz.global.validator.AuthenticationValidator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;

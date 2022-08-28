@@ -1,5 +1,7 @@
 package ezoz.backend_ezoz.domain.member.entity;
 
+import ezoz.backend_ezoz.domain.common.BaseEntity;
+import ezoz.backend_ezoz.domain.jwt.entity.Token;
 import ezoz.backend_ezoz.domain.member.constant.MemberRole;
 import ezoz.backend_ezoz.domain.member.constant.MemberType;
 import lombok.AccessLevel;
@@ -13,7 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,24 +35,20 @@ public class Member {
     @Column(nullable = false)
     private MemberType memberType;
 
-    private String refreshToken;
-
-    private LocalDateTime tokenExpirationTime;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "token_id")
+    private Token token;
 
     @Builder
-    public Member(String email, MemberType memberType, String memberName, MemberRole memberRole, String refreshToken, LocalDateTime tokenExpirationTime) {
+    public Member(String email, MemberType memberType, String memberName, MemberRole memberRole) {
 
         this.email = email;
         this.memberType = memberType;
         this.memberName = memberName;
         this.memberRole = memberRole;
-        this.refreshToken = refreshToken;
-        this.tokenExpirationTime = tokenExpirationTime;
-
     }
 
-    public void updateRefreshToken(String refreshToken, LocalDateTime tokenExpirationTime) {
-        this.refreshToken = refreshToken;
-        this.tokenExpirationTime = tokenExpirationTime;
+    public void updateRefreshToken(Token token) {
+        this.token = token;
     }
 }

@@ -7,10 +7,7 @@ import ezoz.backend_ezoz.domain.member.constant.MemberType;
 import ezoz.backend_ezoz.global.validator.AuthenticationValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,11 +20,29 @@ public class LoginController {
     private final LoginValidator loginValidator;
     private final LoginService loginService;
 
+    @PostMapping("/oauth/sign-up")
+    public ResponseEntity<Long> oauthSignUp(@RequestBody OauthLoginDto.Request oauthLoginRequestDto
+            , HttpServletRequest httpServletRequest) {
+
+        String authorizationHeader = httpServletRequest.getHeader("Authorization");
+
+        authenticationValidator.validateAuthorizationHeader(authorizationHeader);
+        loginValidator.validateMemberType(oauthLoginRequestDto.getMemberType());
+
+        MemberType memberType = MemberType.from(oauthLoginRequestDto.getMemberType());
+
+        Long memberId = loginService.signUpOauth(authorizationHeader, memberType);
+
+        return ResponseEntity.ok(memberId);
+
+    }
+
     @PostMapping("/oauth/login")
     public ResponseEntity<OauthLoginDto.Response> oauthLogin(@RequestBody OauthLoginDto.Request oauthLoginRequestDto
             , HttpServletRequest httpServletRequest) {
 
         String authorizationHeader = httpServletRequest.getHeader("Authorization");
+
         authenticationValidator.validateAuthorizationHeader(authorizationHeader);
         loginValidator.validateMemberType(oauthLoginRequestDto.getMemberType());
 
@@ -37,5 +52,15 @@ public class LoginController {
 
         return ResponseEntity.ok(response);
 
+    }
+
+    @GetMapping("/reissue")
+    public ResponseEntity<String> reissueAccessToken(HttpServletRequest httpServletRequest) {
+
+        String authorizationHeader = httpServletRequest.getHeader("Authorization");
+        String refreshToken = authorizationHeader.split(" ")[1];
+        String accessToken = loginService.reissueAccessToken(refreshToken);
+
+        return ResponseEntity.ok(accessToken);
     }
 }

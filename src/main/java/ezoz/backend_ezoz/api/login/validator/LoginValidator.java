@@ -13,6 +13,5 @@ public class LoginValidator {
             throw new InvalidValueException(ErrorCode.INVALID_MEMBER_TYPE);
         }
 
-
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @EnableFeignClients(basePackages = "ezoz.backend_ezoz")
 @Import(FeignClientsConfiguration.class)
-public class FeignConfiguration {
+public class FeignConfig {
 
     @Bean
     Logger.Level feignLoggerLevel() {
