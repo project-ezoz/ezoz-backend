@@ -3,6 +3,12 @@ spring:
     activate:
       on-profile: prod
 
+  datasource:
+    url: ENC(t68zlbpOCUvtPySpCtXzeVCRCcYJS2/RSscqD6YDPFfRfqm33x3XVvXW3v85LcbCNJUiU62XYMUxOiXG35nneE5qin876wgKEJQldFLIX6JC+fS7x5CsLdwHh95nH5f9WIk6pbEYeUsxKenGTr1zVnTmSV5Nvnd1)
+    username: ENC(es4q4nZN6s8TkNupU+UozQ==)
+    password: ENC(9BLP+Yas2QsUt2fDpehP5dpwYMhtXo2Y)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: none
