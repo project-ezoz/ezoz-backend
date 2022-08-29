@@ -47,7 +47,7 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/login", "/api/oauth/login", "/auth/kakao/**");
+        return (web) -> web.ignoring().antMatchers("/login", "/api/oauth/login", "/auth/kakao/callback");
     }
 
 }
