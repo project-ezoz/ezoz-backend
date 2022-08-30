@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum GrantType {
-    BEARRER("Bearer");
+    BEARER("Bearer");
 
     GrantType(String type) {
         this.type = type;
