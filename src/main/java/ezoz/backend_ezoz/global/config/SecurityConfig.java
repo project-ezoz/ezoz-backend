@@ -23,6 +23,9 @@ public class SecurityConfig {
     private final AuthenticationValidator authenticationValidator;
     private final TokenManager tokenManager;
     private final ObjectMapper objectMapper;
+    private final String[] WHITE_LIST =
+            {"/login", "/api/oauth/login", "/auth/kakao/callback", "/favicon.ico", "/error", "/swagger-ui/**"};
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -47,7 +50,7 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/login", "/api/oauth/login", "/auth/kakao/callback");
+        return (web) -> web.ignoring().antMatchers(WHITE_LIST);
     }
 
 }
