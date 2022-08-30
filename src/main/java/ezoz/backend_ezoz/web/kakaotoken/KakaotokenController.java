@@ -34,6 +34,7 @@ public class KakaotokenController {
     public @ResponseBody
     String loginCallback(String code) {
         log.info("리다이렉트 컨트롤러 들어옴");
+        log.info("인가코드: " + code);
         ResponseEntity<KakaoTokenResponseDto> kakaoToken = kakaoTokenClient.getKakaoToken(CONTENT_TYPE,
                 GRANT_TYPE, clientId, REDIRECT_URI, code, clientSecret);
 
