@@ -7,11 +7,13 @@ import ezoz.backend_ezoz.api.login.validator.LoginValidator;
 import ezoz.backend_ezoz.domain.member.constant.MemberType;
 import ezoz.backend_ezoz.global.validator.AuthenticationValidator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -62,6 +64,7 @@ public class LoginController {
         String refreshToken = authorizationHeader.split(" ")[1];
         ReissueTokenDto reissueTokenDto = loginService.reissueAccessToken(refreshToken);
 
+        log.info("컨트롤러에서 리이슈토큰 나가기 전");
         return ResponseEntity.ok(reissueTokenDto);
     }
 }

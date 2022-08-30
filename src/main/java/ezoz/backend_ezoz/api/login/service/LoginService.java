@@ -17,11 +17,13 @@ import ezoz.backend_ezoz.global.error.exception.EntityNotFoundException;
 import ezoz.backend_ezoz.global.error.exception.ErrorCode;
 import ezoz.backend_ezoz.global.error.exception.jwt.NotValidTokenException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -100,6 +102,7 @@ public class LoginService {
 
         String accessToken = tokenManager.createAccessToken(email, member.getMemberRole());
 
+        log.info("리이슈 service 함수 끝남");
         return ReissueTokenDto.from(accessToken);
 
     }
