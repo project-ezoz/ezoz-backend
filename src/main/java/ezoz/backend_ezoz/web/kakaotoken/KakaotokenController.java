@@ -1,12 +1,14 @@
 package ezoz.backend_ezoz.web.kakaotoken;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class KakaotokenController {
@@ -31,7 +33,7 @@ public class KakaotokenController {
     @GetMapping("/auth/kakao/callback")
     public @ResponseBody
     String loginCallback(String code) {
-
+        log.info("리다이렉트로 들어옴");
         ResponseEntity<KakaoTokenResponseDto> kakaoToken = kakaoTokenClient.getKakaoToken(CONTENT_TYPE,
                 GRANT_TYPE, clientId, REDIRECT_URI, code, clientSecret);
 
