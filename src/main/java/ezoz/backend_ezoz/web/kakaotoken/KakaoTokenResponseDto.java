@@ -1,5 +1,6 @@
 package ezoz.backend_ezoz.web.kakaotoken;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,12 +18,14 @@ public class KakaoTokenResponseDto {
     private String access_token;
 
     @NotBlank
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
     private Integer expires_in;
 
     @NotNull
     private String refresh_token;
 
     @NotBlank
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
     private Integer refresh_token_expires_in;
 
     @NotBlank
