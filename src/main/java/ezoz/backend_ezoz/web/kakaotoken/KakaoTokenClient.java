@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(url = "https://kauth.kakao.com", name = "kakaoTokenFeignClient")
 public interface KakaoTokenClient {
     @PostMapping("/oauth/token")
-    ResponseEntity<KakaoTokenResponseDto> getKakaoToken(
+    KakaoTokenResponseDto getKakaoToken(
             @RequestHeader("Content-Type") String contentType,
             @RequestParam("grant_type") String grantType,
             @RequestParam("client_id") String clientId,

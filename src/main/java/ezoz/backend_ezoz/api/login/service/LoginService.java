@@ -2,6 +2,7 @@ package ezoz.backend_ezoz.api.login.service;
 
 import ezoz.backend_ezoz.api.login.dto.OAuthAttributes;
 import ezoz.backend_ezoz.api.login.dto.OauthLoginDto;
+import ezoz.backend_ezoz.api.login.dto.ReissueTokenDto;
 import ezoz.backend_ezoz.api.login.service.social.SocialLoginApiService;
 import ezoz.backend_ezoz.api.login.service.social.SocialLoginApiServiceFactory;
 import ezoz.backend_ezoz.domain.jwt.entity.Token;
@@ -86,7 +87,7 @@ public class LoginService {
         member.updateRefreshToken(token);
     }
 
-    public String reissueAccessToken(String refreshToken) {
+    public ReissueTokenDto reissueAccessToken(String refreshToken) {
         String email = tokenManager.getEmail(refreshToken);
 
         Member member = memberService.findByEmailFetchToken(email)
@@ -99,7 +100,7 @@ public class LoginService {
 
         String accessToken = tokenManager.createAccessToken(email, member.getMemberRole());
 
-        return accessToken;
+        return ReissueTokenDto.from(accessToken);
 
     }
 

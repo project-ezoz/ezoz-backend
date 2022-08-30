@@ -1,6 +1,7 @@
 package ezoz.backend_ezoz.api.login.controller;
 
 import ezoz.backend_ezoz.api.login.dto.OauthLoginDto;
+import ezoz.backend_ezoz.api.login.dto.ReissueTokenDto;
 import ezoz.backend_ezoz.api.login.service.LoginService;
 import ezoz.backend_ezoz.api.login.validator.LoginValidator;
 import ezoz.backend_ezoz.domain.member.constant.MemberType;
@@ -55,12 +56,12 @@ public class LoginController {
     }
 
     @GetMapping("/reissue")
-    public ResponseEntity<String> reissueAccessToken(HttpServletRequest httpServletRequest) {
+    public ResponseEntity<ReissueTokenDto> reissueAccessToken(HttpServletRequest httpServletRequest) {
 
         String authorizationHeader = httpServletRequest.getHeader("Authorization");
         String refreshToken = authorizationHeader.split(" ")[1];
-        String accessToken = loginService.reissueAccessToken(refreshToken);
+        ReissueTokenDto reissueTokenDto = loginService.reissueAccessToken(refreshToken);
 
-        return ResponseEntity.ok(accessToken);
+        return ResponseEntity.ok(reissueTokenDto);
     }
 }

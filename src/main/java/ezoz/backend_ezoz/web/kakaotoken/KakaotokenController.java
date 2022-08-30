@@ -32,14 +32,11 @@ public class KakaotokenController {
 
     @GetMapping("/auth/kakao/callback")
     public @ResponseBody
-    String loginCallback(String code) {
-        log.info("리다이렉트 컨트롤러 들어옴");
-        log.info("인가코드: " + code);
-        ResponseEntity<KakaoTokenResponseDto> kakaoToken = kakaoTokenClient.getKakaoToken(CONTENT_TYPE,
+    ResponseEntity<KakaoTokenResponseDto> loginCallback(String code) {
+        KakaoTokenResponseDto kakaoToken = kakaoTokenClient.getKakaoToken(CONTENT_TYPE,
                 GRANT_TYPE, clientId, REDIRECT_URI, code, clientSecret);
 
-        log.info("리다이렉트 컨트롤러 나갈준비");
-        return "kakao token : " + kakaoToken;
+        return ResponseEntity.ok(kakaoToken);
 
     }
 

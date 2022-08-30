@@ -29,6 +29,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http
                 .csrf().disable()
                 .exceptionHandling()
@@ -43,7 +44,6 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtAuthenticationFilter(authenticationValidator, tokenManager),
                         UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new ExceptionHandlerFilter(objectMapper), JwtAuthenticationFilter.class);
-
 
         return http.build();
     }
