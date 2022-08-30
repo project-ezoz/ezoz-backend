@@ -33,7 +33,6 @@ public class KakaotokenController {
     @GetMapping("/auth/kakao/callback")
     public @ResponseBody
     String loginCallback(String code) {
-        log.info("리다이렉트로 들어옴");
         ResponseEntity<KakaoTokenResponseDto> kakaoToken = kakaoTokenClient.getKakaoToken(CONTENT_TYPE,
                 GRANT_TYPE, clientId, REDIRECT_URI, code, clientSecret);
 
