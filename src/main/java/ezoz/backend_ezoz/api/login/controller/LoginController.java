@@ -6,6 +6,7 @@ import ezoz.backend_ezoz.api.login.service.LoginService;
 import ezoz.backend_ezoz.api.login.validator.LoginValidator;
 import ezoz.backend_ezoz.domain.member.constant.MemberType;
 import ezoz.backend_ezoz.global.validator.AuthenticationValidator;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,7 @@ public class LoginController {
 
     }
 
+    @ApiOperation(value = "소셜 로그인 API", notes = "카카오 액세스 토큰을 통해 서버의 JWT 토큰을 발급받는다.")
     @PostMapping("/oauth/login")
     public ResponseEntity<OauthLoginDto.Response> oauthLogin(@RequestBody OauthLoginDto.Request oauthLoginRequestDto
             , HttpServletRequest httpServletRequest) {
