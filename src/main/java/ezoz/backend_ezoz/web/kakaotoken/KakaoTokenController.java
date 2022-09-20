@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-public class KakaotokenController {
+public class KakaoTokenController {
 
     @Value("${kakao.client.secret}")
     private String clientSecret;
@@ -19,7 +19,7 @@ public class KakaotokenController {
     @Value("${kakao.client.id}")
     private String clientId;
 
-    @Value("${kakao.client.redirect-url}")
+    @Value("${kakao.redirect-uri}")
     private String redirectUri;
 
     private final KakaoTokenClient kakaoTokenClient;

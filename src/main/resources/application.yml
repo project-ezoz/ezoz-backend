@@ -29,6 +29,6 @@ kakao:
   client:
     secret: ENC(B+UHkjDDMf3BBzsVcbGvM21DTyuXorOiGF+kUVqtR45vugBoEIyGNo43O6lYgtJ6)
     id: ENC(y4WHYqeOsIIVP5kn0yCeSrfJceGTj5Qj6AXluMz5Q2V7DF8/618hZXE3ITRgadFk)
-    redirect-uri: https://ezoz-trip.com/auth/kakao/callback
+  redirect-uri: https://ezoz-trip.com/auth/kakao/callback
 
 
