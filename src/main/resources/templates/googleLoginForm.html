@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>구글 로그인 페이지</title>
+</head>
+<style>
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .content {
+        font-family: system-ui, serif;
+        font-size: 2rem;
+        padding: 1rem;
+        border-radius: 1rem;
+        background: blue;
+    }
+
+    a {
+        text-decoration-line: none
+    }
+</style>
+<body>
+<div class="wrapper">
+    <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=192712453941-kc9ms3dsciciu0qj08ade2am6paqjd9o.apps.googleusercontent.com&redirect_uri=https://ezoz-trip.shop:8080/auth/google/callback&response_type=code&scope=profile email">
+        <div class="content">
+            구글 로그인
+        </div>
+    </a>
+</div>
+</body>
+</html>

@@ -1,10 +1,16 @@
 spring:
   datasource:
-    url: ENC(co2H13lJBbPq7z5xZfN9GlTwC5eB1CfdSLPGaf2al5+LEPdKKAGF3IeQMYAegkWLkEFlgQBlMNgwHh4JWY0cBRKjftmfuWKkGcuvuiZgpG6SnpVMzqrvpw==)
-    username: ENC(c9Jr2EahcS7yKfS+CcG5pw==)
-    password: ENC(MbOoE7cvhVipq5ggrrUUOA==)
+    url: jdbc:mariadb://localhost:3306/ezoz_backend_dev?serverTimezone=Asia/Seoul
+    username: root
+    password: 1213
     driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:
     hibernate:
       ddl-auto: create-drop
+
+google:
+  client:
+    id: ENC(6SOx0fH70XMUW9lCNpbDnckPTDRbNUr+HiRMXUauNj3/dLFKwA9Xt+YCaBx9jFqX4jYMsxSjmDFmP3SoehRXdM5O4FHJTBggVqQDdEgXgoeCOPvWW/pzaw==)
+    secret: ENC(4M4MOcL7TbifTjpLyzQPVcHOCN5ToVqiAMaZGieLmEHLsqhnScveoGbBB4O21WRj)
+  callback-uri: http://localhost:8080/auth/google/callback
