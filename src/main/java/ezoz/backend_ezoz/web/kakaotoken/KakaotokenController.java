@@ -19,11 +19,13 @@ public class KakaotokenController {
     @Value("${kakao.client.id}")
     private String clientId;
 
+    @Value("${kakao.client.redirect-url}")
+    private String redirectUri;
+
     private final KakaoTokenClient kakaoTokenClient;
 
     private final String CONTENT_TYPE = "application/x-www-form-urlencoded;charset=utf-8";
     private final String GRANT_TYPE = "authorization_code";
-    private final String REDIRECT_URI = "http://3.38.152.200:80/auth/kakao/callback";
 
     @GetMapping("/login")
     public String login() {
@@ -34,7 +36,7 @@ public class KakaotokenController {
     public @ResponseBody
     ResponseEntity<KakaoTokenResponseDto> loginCallback(String code) {
         KakaoTokenResponseDto kakaoToken = kakaoTokenClient.getKakaoToken(CONTENT_TYPE,
-                GRANT_TYPE, clientId, REDIRECT_URI, code, clientSecret);
+                GRANT_TYPE, clientId, redirectUri, code, clientSecret);
 
         return ResponseEntity.ok(kakaoToken);
 
