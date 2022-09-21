@@ -27,7 +27,7 @@ public class SwaggerConfig {
                 .securityContexts(Arrays.asList(securityContext()))
                 .securitySchemes(Arrays.asList(apiKey()))
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("ezoz.backend_ezoz.api"))
+                .apis(RequestHandlerSelectors.basePackage("ezoz.backend_ezoz"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
@@ -36,7 +36,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("API Documentation")
-                .description("Swagger API Documentation")
+                .description("EZOZ API Documentation")
                 .version("1.0")
                 .build();
     }

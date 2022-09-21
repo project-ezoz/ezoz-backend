@@ -6,6 +6,7 @@ import ezoz.backend_ezoz.api.login.service.LoginService;
 import ezoz.backend_ezoz.api.login.validator.LoginValidator;
 import ezoz.backend_ezoz.domain.member.constant.MemberType;
 import ezoz.backend_ezoz.global.validator.AuthenticationValidator;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@Api("서버 토큰 관리 API")
 public class LoginController {
 
     private final AuthenticationValidator authenticationValidator;
