@@ -23,7 +23,6 @@ public class GoogleTokenController {
     private String callbackUri;
 
     private final String CONTENT_TYPE = "application/x-www-form-urlencoded;charset=utf-8";
-    private final int CONTENT_LENGTH = 0;
     private final String GRANT_TYPE = "authorization_code";
 
     private final GoogleTokenClient googleTokenClient;
@@ -36,7 +35,7 @@ public class GoogleTokenController {
     @GetMapping("/auth/google/callback")
     public @ResponseBody
     ResponseEntity<GoogleResponseDto> loginCallback(String code) {
-        log.info("구글 리다이렉트 컨트롤러 접속");
+
         GoogleResponseDto googleResponseDto = googleTokenClient
                 .getGoogleToken(CONTENT_TYPE, clientId, clientSecret, code, GRANT_TYPE, callbackUri);
 
