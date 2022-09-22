@@ -24,7 +24,7 @@ public class SecurityConfig {
     private final TokenManager tokenManager;
     private final ObjectMapper objectMapper;
     private final String[] WHITE_LIST =
-            {"/", "/login", "/api/oauth/login", "/auth/kakao/callback", "/google/login", "/auth/google/callback",
+            {"/", "/kakao/login", "/api/oauth/login", "/auth/kakao/callback", "/google/login", "/auth/google/callback",
                     "/favicon.ico", "/error",
                     "/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**"};
 
