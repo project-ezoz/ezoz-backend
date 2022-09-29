@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mariadb://localhost:3306/ezoz_backend_dev?serverTimezone=Asia/Seoul
     username: root
-    password: 1213
+    password: 1234
     driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:

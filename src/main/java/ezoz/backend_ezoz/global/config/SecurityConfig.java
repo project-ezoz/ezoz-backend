@@ -25,7 +25,7 @@ public class SecurityConfig {
     private final ObjectMapper objectMapper;
     private final String[] WHITE_LIST =
             {"/", "/kakao/login", "/api/oauth/login", "/auth/kakao/callback", "/google/login", "/auth/google/callback",
-                    "/favicon.ico", "/error",
+                    "/favicon.ico", "/error", "/health",
                     "/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**"};
 
     @Bean

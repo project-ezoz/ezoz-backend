@@ -15,4 +15,9 @@ public class HealthController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/health")
+    public ResponseEntity<String> healthCheckMethod(){
+        return ResponseEntity.ok("okay");
+    }
+
 }
