@@ -53,9 +53,11 @@ public class LoginService {
     }
 
     @Transactional
-    public OauthLoginDto.Response loginOauth(String authorizationHeader, MemberType memberType) {
+    public OauthLoginDto.Response loginOauth(String socialAccessToken, MemberType memberType) {
 
-        OAuthAttributes socialUserInfo = getSocialUserInfo(authorizationHeader, memberType);
+        String addTokenTypeAccessToken = addTokenTypeAccessToken(socialAccessToken);
+
+        OAuthAttributes socialUserInfo = getSocialUserInfo(addTokenTypeAccessToken, memberType);
 
         Member member = memberService.findByEmail(socialUserInfo.getEmail())
                 .orElseGet(() -> registerMember(socialUserInfo, memberType));
@@ -68,6 +70,10 @@ public class LoginService {
 
         return OauthLoginDto.Response.of(accessToken, refreshToken.getRefreshToken());
 
+    }
+
+    private String addTokenTypeAccessToken(String accessToken) {
+        return "Bearer " + accessToken;
     }
 
     private OAuthAttributes getSocialUserInfo(String accessToken, MemberType memberType) {

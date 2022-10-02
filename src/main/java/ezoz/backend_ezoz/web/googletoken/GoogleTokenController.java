@@ -1,5 +1,8 @@
 package ezoz.backend_ezoz.web.googletoken;
 
+import ezoz.backend_ezoz.api.login.dto.OauthLoginDto;
+import ezoz.backend_ezoz.api.login.service.LoginService;
+import ezoz.backend_ezoz.domain.member.constant.MemberType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,7 @@ public class GoogleTokenController {
     private final String GRANT_TYPE = "authorization_code";
 
     private final GoogleTokenClient googleTokenClient;
+    private final LoginService loginService;
 
 
     @ApiOperation(value = "구글 로그인 페이지")
@@ -40,11 +44,13 @@ public class GoogleTokenController {
     @ApiIgnore
     @GetMapping("/auth/google/callback")
     public @ResponseBody
-    ResponseEntity<GoogleResponseDto> loginCallback(String code) {
+    ResponseEntity<OauthLoginDto.Response> loginCallback(String code) {
 
         GoogleResponseDto googleResponseDto = googleTokenClient
                 .getGoogleToken(CONTENT_TYPE, clientId, clientSecret, code, GRANT_TYPE, callbackUri);
 
-        return ResponseEntity.ok(googleResponseDto);
+        OauthLoginDto.Response response = loginService.loginOauth(googleResponseDto.getAccess_token(), MemberType.GOOGLE);
+
+        return ResponseEntity.ok(response);
     }
 }
