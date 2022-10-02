@@ -42,7 +42,7 @@ public class GoogleTokenController {
     }
 
     @ApiIgnore
-    @GetMapping("/auth/google/callback")
+    @GetMapping("/auth/google")
     public @ResponseBody
     ResponseEntity<OauthLoginDto.Response> loginCallback(String code) {
 
