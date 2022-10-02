@@ -41,13 +41,19 @@ public class GoogleTokenController {
         return "googleLoginForm";
     }
 
+    @GetMapping("/google/code")
+    public @ResponseBody
+    ResponseEntity<String> getCode(String code) {
+        return ResponseEntity.ok(code);
+    }
+
     @ApiIgnore
     @GetMapping("/auth/google")
     public @ResponseBody
     ResponseEntity<OauthLoginDto.Response> loginCallback(String code) {
 
         GoogleResponseDto googleResponseDto = googleTokenClient
-                .getGoogleToken(CONTENT_TYPE, clientId, clientSecret, code, GRANT_TYPE, callbackUri);
+                .getGoogleToken(clientId, clientSecret, code, GRANT_TYPE, callbackUri);
 
         OauthLoginDto.Response response = loginService.loginOauth(googleResponseDto.getAccess_token(), MemberType.GOOGLE);
 

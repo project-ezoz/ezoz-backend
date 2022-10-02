@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface GoogleTokenClient {
     @PostMapping("/token")
     GoogleResponseDto getGoogleToken(
-            @RequestHeader("Content-Type") String contentType,
             @RequestParam("client_id") String clientId,
             @RequestParam("client_secret") String clientSecret,
             @RequestParam("code") String code,

@@ -11,6 +11,12 @@ spring:
 
 google:
   client:
-    id: ENC(6SOx0fH70XMUW9lCNpbDnckPTDRbNUr+HiRMXUauNj3/dLFKwA9Xt+YCaBx9jFqX4jYMsxSjmDFmP3SoehRXdM5O4FHJTBggVqQDdEgXgoeCOPvWW/pzaw==)
-    secret: ENC(4M4MOcL7TbifTjpLyzQPVcHOCN5ToVqiAMaZGieLmEHLsqhnScveoGbBB4O21WRj)
-  callback-uri: http://localhost:8080/auth/google/callback
+    id: ENC(jyFppUjjpuMriawAwTyuZuZ+CunF9q/GMsh5Kyohp27vMbV/Rw/M/sCEuTMVl2JdftTWIf7lJqVcURGdJqzbWCTgS/Y9xgLT+txoFScBckJII40YejzrcQ==)
+    secret: ENC(FJGpnbaGoFG5QyNSvsUxc26AHVg6wq8QzLmWZTgyRwQIggU05kaOdoBxtIXdz1iH)
+  callback-uri: https://master.dmwtfx8kvle30.amplifyapp.com/auth/google/callback
+
+#google:
+#  client:
+#    id: ENC(6SOx0fH70XMUW9lCNpbDnckPTDRbNUr+HiRMXUauNj3/dLFKwA9Xt+YCaBx9jFqX4jYMsxSjmDFmP3SoehRXdM5O4FHJTBggVqQDdEgXgoeCOPvWW/pzaw==)
+#    secret: ENC(4M4MOcL7TbifTjpLyzQPVcHOCN5ToVqiAMaZGieLmEHLsqhnScveoGbBB4O21WRj)
+#  callback-uri: http://localhost:8080/google/code
