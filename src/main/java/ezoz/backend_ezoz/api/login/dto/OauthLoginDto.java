@@ -2,19 +2,20 @@ package ezoz.backend_ezoz.api.login.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 public class OauthLoginDto {
     @Getter
-    @Setter
     @ApiModel(value = "서버 토큰 발급 API 요청 값", description = "서버 토큰 발급 요청 값입니다.")
     public static class Request {
         @ApiModelProperty(value = "회원 소셜 타입", required = true, example = "GOOGLE")
         private String memberType;
     }
 
-    @Getter @Setter
+    @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor

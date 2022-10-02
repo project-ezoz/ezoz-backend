@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import java.util.Map;
 
-@Getter @Setter
+@Getter
 @JsonIgnoreProperties({"connected_at"})
 public class KakaoUserInfo {
     private String id;

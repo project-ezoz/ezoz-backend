@@ -1,9 +1,8 @@
 package ezoz.backend_ezoz.api.login.dto;
 
 import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
+@Getter
 public class GoogleUserInfo {
 
     private String email;
