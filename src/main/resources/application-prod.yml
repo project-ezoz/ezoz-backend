@@ -17,4 +17,4 @@ google:
   client:
     id: ENC(jyFppUjjpuMriawAwTyuZuZ+CunF9q/GMsh5Kyohp27vMbV/Rw/M/sCEuTMVl2JdftTWIf7lJqVcURGdJqzbWCTgS/Y9xgLT+txoFScBckJII40YejzrcQ==)
     secret: ENC(FJGpnbaGoFG5QyNSvsUxc26AHVg6wq8QzLmWZTgyRwQIggU05kaOdoBxtIXdz1iH)
-  callback-uri: https://localhost:8080/google/code
+  callback-uri: http://localhost:8080/google/code
