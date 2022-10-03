@@ -41,7 +41,7 @@ public class GoogleTokenController {
         return "googleLoginForm";
     }
 
-    @GetMapping("/google/code")
+    @GetMapping("/auth/google/callback")
     public @ResponseBody
     ResponseEntity<String> getCode(String code) {
         return ResponseEntity.ok(code);
