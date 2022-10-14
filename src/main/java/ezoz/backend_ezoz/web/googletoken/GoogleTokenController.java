@@ -37,22 +37,24 @@ public class GoogleTokenController {
     private final LoginService loginService;
 
 
-    @ApiOperation(value = "구글 로그인 페이지")
+
+    @ApiIgnore
     @GetMapping("/google/login")
     public String login() {
         return "googleLoginForm";
     }
 
+    @ApiIgnore
     @GetMapping("/auth/google/callback")
     public @ResponseBody
     ResponseEntity<String> getCode(String code) {
         return ResponseEntity.ok(code);
     }
 
-    @ApiIgnore
+    @ApiOperation(value = "서버 토큰 발급 API", notes = "소셜 액세스 토큰을 통해 서버의 JWT 토큰을 발급받는다.")
     @GetMapping("/auth/google")
     public @ResponseBody
-    ResponseEntity<OauthLoginDto.Response> loginCallback(String code) {
+    ResponseEntity<OauthLoginDto.Response> googleLogin(String code) {
 
         GoogleResponseDto googleResponseDto = googleTokenClient
                 .getGoogleToken(clientId, clientSecret, code, GRANT_TYPE, callbackUri);

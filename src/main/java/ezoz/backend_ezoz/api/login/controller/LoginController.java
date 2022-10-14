@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@Api("서버 토큰 관리 API")
+@ApiIgnore
 public class LoginController {
 
     private final AuthenticationValidator authenticationValidator;
@@ -47,7 +47,6 @@ public class LoginController {
 
     }
 
-    @ApiOperation(value = "서버 토큰 발급 API", notes = "소셜 액세스 토큰을 통해 서버의 JWT 토큰을 발급받는다.")
     @PostMapping("/oauth/login")
     public ResponseEntity<OauthLoginDto.Response> oauthLogin(@RequestBody OauthLoginDto.Request oauthLoginRequestDto
             , HttpServletRequest httpServletRequest) {
