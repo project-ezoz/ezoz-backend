@@ -19,6 +19,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @Controller
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
+@ApiIgnore
 public class GoogleTokenController {
 
     @Value("${google.client.id}")
