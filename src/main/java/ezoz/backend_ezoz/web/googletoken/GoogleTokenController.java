@@ -51,7 +51,7 @@ public class GoogleTokenController {
         return ResponseEntity.ok(code);
     }
 
-    @ApiOperation(value = "서버 토큰 발급 API", notes = "소셜 액세스 토큰을 통해 서버의 JWT 토큰을 발급받는다.")
+    @ApiOperation(value = "서버 토큰 발급 API", notes = "소셜 액세스 토큰을 통해 서버의 JWT 토큰을 발급받는다.", tags = "Account")
     @GetMapping("/auth/google")
     public @ResponseBody
     ResponseEntity<OauthLoginDto.Response> googleLogin(String code) {

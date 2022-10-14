@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@ApiIgnore
 public class LoginController {
 
     private final AuthenticationValidator authenticationValidator;
@@ -47,6 +46,7 @@ public class LoginController {
 
     }
 
+    @ApiIgnore
     @PostMapping("/oauth/login")
     public ResponseEntity<OauthLoginDto.Response> oauthLogin(@RequestBody OauthLoginDto.Request oauthLoginRequestDto
             , HttpServletRequest httpServletRequest) {
@@ -64,7 +64,7 @@ public class LoginController {
 
     }
 
-    @ApiOperation(value = "토큰 재발급 API", notes = "서버에서 발급받은 리프레쉬 토큰을 통해 액세스 토큰을 발급받는다.")
+    @ApiOperation(value = "토큰 재발급 API", notes = "서버에서 발급받은 리프레쉬 토큰을 통해 액세스 토큰을 발급받는다.", tags = "token")
     @GetMapping("/reissue")
     public ResponseEntity<ReissueTokenDto> reissueAccessToken(HttpServletRequest httpServletRequest) {
 
