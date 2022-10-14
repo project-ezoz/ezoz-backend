@@ -13,7 +13,9 @@ public class SubscribeController {
 
     @PostMapping("/subscription")
     public ResponseEntity<SubscriptionInfo> registerSubscription(@RequestBody SubscriptionInfo subscriptionInfo) {
-        log.info("username ={}, email={}", subscriptionInfo.getUsername(), subscriptionInfo.getEmail());
+
+        //구독자 추가 로직
+
         return ResponseEntity.ok(subscriptionInfo);
     }
 }
