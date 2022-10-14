@@ -29,7 +29,9 @@ public class SwaggerConfig {
                 .build()
                 .apiInfo(apiInfo())
                 .tags(new Tag("Account", "소셜 로그인 및 계정 관련 API를 제공"))
-                .tags(new Tag("Token", "토큰 재발급과 로그아웃 관련 API를 제공"));
+                .tags(new Tag("Token", "토큰 재발급과 로그아웃 관련 API를 제공"))
+                .tags(new Tag("Health", "서버가 살아있는지 죽어있는지 확인하기"))
+                .tags(new Tag("Subscription", "구독자 등록 API를 제공"));
     }
 
     private ApiInfo apiInfo() {

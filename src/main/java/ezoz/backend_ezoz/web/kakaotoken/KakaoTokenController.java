@@ -12,6 +12,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @Slf4j
 @Controller
+@ApiIgnore
 @RequiredArgsConstructor
 public class KakaoTokenController {
 
