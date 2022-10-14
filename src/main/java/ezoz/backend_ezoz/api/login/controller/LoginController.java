@@ -22,47 +22,48 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@Api(tags = "Token")
 public class LoginController {
 
     private final AuthenticationValidator authenticationValidator;
     private final LoginValidator loginValidator;
     private final LoginService loginService;
 
-    @ApiIgnore
-    @PostMapping("/oauth/sign-up")
-    public ResponseEntity<Long> oauthSignUp(@RequestBody OauthLoginDto.Request oauthLoginRequestDto
-            , HttpServletRequest httpServletRequest) {
-
-        String authorizationHeader = httpServletRequest.getHeader("Authorization");
-
-        authenticationValidator.validateAuthorizationHeader(authorizationHeader);
-        loginValidator.validateMemberType(oauthLoginRequestDto.getMemberType());
-
-        MemberType memberType = MemberType.from(oauthLoginRequestDto.getMemberType());
-
-        Long memberId = loginService.signUpOauth(authorizationHeader, memberType);
-
-        return ResponseEntity.ok(memberId);
-
-    }
-
-    @ApiIgnore
-    @PostMapping("/oauth/login")
-    public ResponseEntity<OauthLoginDto.Response> oauthLogin(@RequestBody OauthLoginDto.Request oauthLoginRequestDto
-            , HttpServletRequest httpServletRequest) {
-
-        String authorizationHeader = httpServletRequest.getHeader("Authorization");
-
-        authenticationValidator.validateAuthorizationHeader(authorizationHeader);
-        loginValidator.validateMemberType(oauthLoginRequestDto.getMemberType());
-
-        MemberType memberType = MemberType.from(oauthLoginRequestDto.getMemberType());
-
-        OauthLoginDto.Response response = loginService.loginOauth(authorizationHeader, memberType);
-
-        return ResponseEntity.ok(response);
-
-    }
+//    @ApiIgnore
+//    @PostMapping("/oauth/sign-up")
+//    public ResponseEntity<Long> oauthSignUp(@RequestBody OauthLoginDto.Request oauthLoginRequestDto
+//            , HttpServletRequest httpServletRequest) {
+//
+//        String authorizationHeader = httpServletRequest.getHeader("Authorization");
+//
+//        authenticationValidator.validateAuthorizationHeader(authorizationHeader);
+//        loginValidator.validateMemberType(oauthLoginRequestDto.getMemberType());
+//
+//        MemberType memberType = MemberType.from(oauthLoginRequestDto.getMemberType());
+//
+//        Long memberId = loginService.signUpOauth(authorizationHeader, memberType);
+//
+//        return ResponseEntity.ok(memberId);
+//
+//    }
+//
+//    @ApiIgnore
+//    @PostMapping("/oauth/login")
+//    public ResponseEntity<OauthLoginDto.Response> oauthLogin(@RequestBody OauthLoginDto.Request oauthLoginRequestDto
+//            , HttpServletRequest httpServletRequest) {
+//
+//        String authorizationHeader = httpServletRequest.getHeader("Authorization");
+//
+//        authenticationValidator.validateAuthorizationHeader(authorizationHeader);
+//        loginValidator.validateMemberType(oauthLoginRequestDto.getMemberType());
+//
+//        MemberType memberType = MemberType.from(oauthLoginRequestDto.getMemberType());
+//
+//        OauthLoginDto.Response response = loginService.loginOauth(authorizationHeader, memberType);
+//
+//        return ResponseEntity.ok(response);
+//
+//    }
 
     @ApiOperation(value = "토큰 재발급 API", notes = "서버에서 발급받은 리프레쉬 토큰을 통해 액세스 토큰을 발급받는다.", tags = "token")
     @GetMapping("/reissue")

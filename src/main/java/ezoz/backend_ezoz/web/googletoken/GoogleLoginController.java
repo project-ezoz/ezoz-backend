@@ -3,7 +3,7 @@ package ezoz.backend_ezoz.web.googletoken;
 import ezoz.backend_ezoz.api.login.dto.OauthLoginDto;
 import ezoz.backend_ezoz.api.login.service.LoginService;
 import ezoz.backend_ezoz.domain.member.constant.MemberType;
-import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +19,8 @@ import springfox.documentation.annotations.ApiIgnore;
 @Controller
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-@ApiIgnore
-public class GoogleTokenController {
+@Api(tags = "Account")
+public class GoogleLoginController {
 
     @Value("${google.client.id}")
     private String clientId;
@@ -31,13 +31,10 @@ public class GoogleTokenController {
     @Value("${google.callback-uri}")
     private String callbackUri;
 
-    private final String CONTENT_TYPE = "application/x-www-form-urlencoded;charset=utf-8";
     private final String GRANT_TYPE = "authorization_code";
 
     private final GoogleTokenClient googleTokenClient;
     private final LoginService loginService;
-
-
 
     @ApiIgnore
     @GetMapping("/google/login")
