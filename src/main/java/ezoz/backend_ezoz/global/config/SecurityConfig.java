@@ -23,10 +23,13 @@ public class SecurityConfig {
     private final AuthenticationValidator authenticationValidator;
     private final TokenManager tokenManager;
     private final ObjectMapper objectMapper;
+
+    // TODO: 2022. 11. 18. 추후에 화이트리스트 정리 필요 
     private final String[] WHITE_LIST =
             {"/", "/kakao/login", "/api/oauth/login", "/auth/kakao/callback",
                     "/google/login", "/auth/google", "/google/code", "/auth/google/callback",
                     "/api/subscription",
+                    "/posts/**", "/posts",
                     "/favicon.ico", "/error", "/health",
                     "/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**"};
 

@@ -1,12 +1,18 @@
 package ezoz.backend_ezoz;
 
+import ezoz.backend_ezoz.domain.post.repository.elasticsearch.PostSearchRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
+@EnableJpaRepositories(excludeFilters = @ComponentScan.Filter(
+		type = FilterType.ASSIGNABLE_TYPE,
+		classes = PostSearchRepository.class))
 @SpringBootApplication
 public class BackendEzozApplication {
 

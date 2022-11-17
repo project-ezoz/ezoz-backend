@@ -19,6 +19,13 @@ spring:
 logging:
   level:
     org.hibernate.type: trace
+    org:
+      springframework:
+        data:
+          elasticsearch:
+            client:
+              WIRE=TRACE: trace
+
 
 token:
   secret: ENC(lDOPPFP+MfO0vqmgDit4eh5IqSaI496Up23uqnvldVOhbpcqgNiSVtvyxsEQkhqOWtg/ZaguUE/J+pHkx5rMSAXORW4EAbV/mCUEBQ8bY4aKrZmreJviie8ZGYjzKDE5IFFVMcbxxiVzUqSg5Fuajg==)
