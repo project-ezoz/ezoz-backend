@@ -29,7 +29,7 @@ public class SecurityConfig {
             {"/", "/kakao/login", "/api/oauth/login", "/auth/kakao/callback",
                     "/google/login", "/auth/google", "/google/code", "/auth/google/callback",
                     "/api/subscription",
-                    "/posts/**", "/posts",
+                    "/posts/**", "/posts", "/upload",
                     "/favicon.ico", "/error", "/health",
                     "/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**"};
 

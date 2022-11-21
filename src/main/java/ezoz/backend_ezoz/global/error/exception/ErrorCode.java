@@ -9,6 +9,9 @@ public enum ErrorCode {
     MISMATCHED_PASSWORD(401, "패스워드가 일치하지 않습니다."),
     LOGIN_ERROR(401, "아이디 또는 비밀번호를 확인해주세요"),
 
+    // 인가
+    FORBIDDEN_ADMIN(403, "관리자 권한이 없습니다."),
+
     //토큰
     INVALID_MEMBER_TYPE(400, "잘못된 회원 타입 입니다.(memberType : KAKAO)"),
     NOT_EXISTS_AUTHORIZATION(401, "Authorization Header가 빈값입니다."),
@@ -22,24 +25,12 @@ public enum ErrorCode {
     UNSUPPORTED_TOKEN(401, "지원되지 않는 JWT 토큰입니다."),
     INVALID_TOKEN_SIGNATURE(401, "잘못된 JWT 서명입니다."),
 
-    // 인가
-    FORBIDDEN_ADMIN(403, "관리자 권한이 없습니다."),
-
-    // 상품
-    FIRST_ITEM_IMAGE_NOT_EXISTS(400, "첫번째 상품 이미지는 필수 입력 값 입니다."),
-    ITEM_NOT_EXISTS(400, "상품 정보가 존재하지 않습니다."),
-    REST_STOCK_NOT_EXISTS(400, "상품의 재고가 부족 합니다."),
-    ITEM_ID_NOT_SAME(400, "URI의 상품 아이디와 body의 상품 아이디가 다릅니다."),
-
-    // 배송
-    DELIVERY_NOT_EXISTS(400, "배송 정보가 존재하지 않습니다."),
-
     // 회원
     MEMBER_NOT_EXISTS(400, "해당 회원은 존재하지 않습니다."),
 
-    // 주문
-    ORDER_NOT_EXISTS(400, "해당 주문은 존재하지 않습니다."),
-    NOT_MEMBER_ORDER(403, "해당 회원의 주문이 아닙니다.");
+    // 이미지
+    FAILED_REGISTER_POST_IMAGE(400, "이미지가 저장되지 않았습니다.");
+
 
     ErrorCode(int status, String message) {
         this.status = status;

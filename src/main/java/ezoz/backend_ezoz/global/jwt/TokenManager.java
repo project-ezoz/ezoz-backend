@@ -97,6 +97,18 @@ public class TokenManager {
         }
     }
 
+    public String getMember(String token) {
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody().getIssuer();
+        } catch (Exception e) {
+            throw new NotValidTokenException(ErrorCode.NOT_VALID_TOKEN);
+        }
+    }
+
     public void validateToken(String token) {
         try {
             Jwts.parserBuilder()
