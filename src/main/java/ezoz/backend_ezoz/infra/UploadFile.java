@@ -1,6 +1,6 @@
 package ezoz.backend_ezoz.infra;
 
-import ezoz.backend_ezoz.domain.postimage.entity.PostImage;
+import ezoz.backend_ezoz.domain.post.entity.PostImage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

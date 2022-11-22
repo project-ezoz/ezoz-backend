@@ -1,6 +1,6 @@
 package ezoz.backend_ezoz.domain.post.entity;
 
-import ezoz.backend_ezoz.domain.postimage.entity.PostImage;
+import ezoz.backend_ezoz.domain.common.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @Document(indexName = "posts")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Post {
+public class Post extends BaseEntity {
 
     @Id
     @org.springframework.data.annotation.Id

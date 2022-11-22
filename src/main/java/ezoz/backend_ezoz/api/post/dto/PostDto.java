@@ -2,7 +2,7 @@ package ezoz.backend_ezoz.api.post.dto;
 
 import ezoz.backend_ezoz.domain.post.entity.Location;
 import ezoz.backend_ezoz.domain.post.entity.Post;
-import ezoz.backend_ezoz.domain.postimage.entity.PostImage;
+import ezoz.backend_ezoz.domain.post.entity.PostImage;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 

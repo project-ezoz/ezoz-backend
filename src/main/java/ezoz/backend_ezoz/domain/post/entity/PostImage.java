@@ -1,4 +1,4 @@
-package ezoz.backend_ezoz.domain.postimage.entity;
+package ezoz.backend_ezoz.domain.post.entity;
 
 import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -10,7 +10,6 @@ import javax.persistence.Id;
 
 @Entity
 @Getter
-@Document(indexName = "postimages")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostImage {

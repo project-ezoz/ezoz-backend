@@ -3,7 +3,7 @@ package ezoz.backend_ezoz.api.post.service;
 import ezoz.backend_ezoz.api.post.dto.PostDto;
 import ezoz.backend_ezoz.domain.post.entity.Post;
 import ezoz.backend_ezoz.domain.post.service.PostService;
-import ezoz.backend_ezoz.domain.postimage.entity.PostImage;
+import ezoz.backend_ezoz.domain.post.entity.PostImage;
 import ezoz.backend_ezoz.global.error.exception.BusinessException;
 import ezoz.backend_ezoz.global.error.exception.ErrorCode;
 import ezoz.backend_ezoz.global.jwt.TokenManager;
