@@ -27,11 +27,6 @@ public class PostService {
     }
 
     public List<Post> searchByKeyword(String keyword) {
-        List<Post> byKeyword = postSearchRepository.findByKeyword(keyword);
-        return byKeyword;
-    }
-
-    public List<Post> findByKeyword(String keyword) {
-        return postRepository.findByKeyword(keyword);
+        return postSearchRepository.findByKeyword(keyword);
     }
 }

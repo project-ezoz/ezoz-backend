@@ -1,10 +1,11 @@
 package ezoz.backend_ezoz.domain.journal.entity;
 
 import ezoz.backend_ezoz.domain.common.BaseEntity;
-import ezoz.backend_ezoz.domain.post.entity.PostImage;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
@@ -23,6 +24,9 @@ public class Journal extends BaseEntity {
     private Long journalId;
 
     @Column(nullable = false)
+    private JournalType journalType;
+
+    @Column(nullable = false)
     private String title;
 
     @Lob
@@ -35,4 +39,22 @@ public class Journal extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "journal_id")
     private List<JournalImage> journalImages = new ArrayList<>();
+
+    @PersistenceConstructor
+    public Journal(Long journalId, JournalType journalType, String title, String content, String author) {
+        this.journalId = journalId;
+        journalType = journalType;
+        this.title = title;
+        this.content = content;
+        this.author = author;
+    }
+
+    @Builder
+    public Journal(JournalType journalType, String title, String content, String author, List<JournalImage> journalImages) {
+        this.journalType = journalType;
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.journalImages = journalImages;
+    }
 }

@@ -32,12 +32,12 @@ public class PostApiService {
         List<PostImage> postImages = new ArrayList<>();
         registerPostImages(postImages, postRequestDto.getPostImageFiles());
 
+        // TODO: 2022. 11. 23. dto 안으로 생성 집어넣기
         Post post = PostDto.Request.toPostEntity(
                 postRequestDto.getCoordinate(),
                 postRequestDto.getAddress(),
                 postRequestDto.getTitle(),
                 postRequestDto.getContent(),
-                "ckdgus",
                 postImages
         );
 
@@ -63,12 +63,6 @@ public class PostApiService {
 
     public List<PostDto.Response> searchByKeyword(String keyword) {
         return postService.searchByKeyword(keyword).stream()
-                .map(PostDto.Response::from)
-                .collect(Collectors.toList());
-    }
-
-    public List<PostDto.Response> findByKeyword(String keyword) {
-        return postService.findByKeyword(keyword).stream()
                 .map(PostDto.Response::from)
                 .collect(Collectors.toList());
     }

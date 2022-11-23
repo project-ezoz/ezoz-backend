@@ -1,5 +1,6 @@
 package ezoz.backend_ezoz.api.post.dto;
 
+import ezoz.backend_ezoz.domain.journal.entity.Journal;
 import ezoz.backend_ezoz.domain.post.entity.Location;
 import ezoz.backend_ezoz.domain.post.entity.Post;
 import ezoz.backend_ezoz.domain.post.entity.PostImage;
@@ -30,18 +31,14 @@ public class PostDto {
         @NotBlank
         private String content;
 
-        @NotBlank
-        private String author;
-
         private List<MultipartFile> postImageFiles;
 
         public static Post toPostEntity(String coordinate, String address, String title,
-                                        String content, String author, List<PostImage> postImages) {
+                                        String content, List<PostImage> postImages) {
             return Post.builder()
                     .location(new Location(coordinate, address))
                     .title(title)
                     .content(content)
-                    .author(author)
                     .postImages(postImages)
                     .build();
         }
