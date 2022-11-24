@@ -55,7 +55,7 @@ public class PostApiService {
                 UploadFile uploadFile = fileService.storeFile(multipartFile);
                 postImages.add(uploadFile.createPostImage());
             } catch (IOException e) {
-                throw new BusinessException(ErrorCode.FAILED_REGISTER_POST_IMAGE);
+                throw new BusinessException(ErrorCode.FAILED_REGISTER_IMAGE);
             }
         }
 

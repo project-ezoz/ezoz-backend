@@ -1,6 +1,7 @@
 package ezoz.backend_ezoz.api.journal.dto;
 
 import ezoz.backend_ezoz.domain.journal.entity.Journal;
+import ezoz.backend_ezoz.domain.journal.entity.JournalImage;
 import ezoz.backend_ezoz.domain.journal.entity.JournalType;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +18,7 @@ public class JournalDto {
     public static class Request {
 
         @NotBlank
-        private JournalType journalType;
+        private String journalType;
 
         @NotBlank
         private String title;
@@ -25,13 +26,34 @@ public class JournalDto {
         @NotBlank
         private String content;
 
-        private List<MultipartFile> postImageFiles;
+        private List<MultipartFile> journalImageFiles;
 
-        public Journal toEntity(String author) {
+        public Journal toEntity(String author, List<JournalImage> journalImages) {
             return Journal.builder()
+                    .journalType(JournalType.from(journalType))
                     .title(title)
                     .content(content)
                     .author(author)
+                    .journalImages(journalImages)
+                    .build();
+        }
+
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Response {
+
+        private String title;
+
+        private String JournalImageUrl;
+
+        public static JournalDto.Response of(String title, String journalImageUrl) {
+            return Response.builder()
+                    .title(title)
+                    .JournalImageUrl(journalImageUrl)
                     .build();
         }
 

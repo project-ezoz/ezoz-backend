@@ -1,6 +1,7 @@
 package ezoz.backend_ezoz.domain.journal.service;
 
 import ezoz.backend_ezoz.domain.journal.entity.Journal;
+import ezoz.backend_ezoz.domain.journal.entity.JournalType;
 import ezoz.backend_ezoz.domain.journal.repository.JournalRepository;
 import ezoz.backend_ezoz.domain.journal.repository.elasticsearch.JournalSearchRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class JournalService {
 
         return savedId.getJournalId();
     }
-    public List<Journal> searchByKeyword(String keyword) {
-        return journalSearchRepository.searchByKeyword(keyword);
+    public List<Journal> searchByKeywordWithPaging(String keyword, JournalType journalType, int page) {
+        return journalSearchRepository.searchByKeywordWithPaging(keyword, journalType, page);
     }
 }

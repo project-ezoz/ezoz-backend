@@ -39,6 +39,7 @@ public class PostDto {
                     .location(new Location(coordinate, address))
                     .title(title)
                     .content(content)
+                    .author("ckdgus")
                     .postImages(postImages)
                     .build();
         }

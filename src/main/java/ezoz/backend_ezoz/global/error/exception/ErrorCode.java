@@ -29,7 +29,10 @@ public enum ErrorCode {
     MEMBER_NOT_EXISTS(400, "해당 회원은 존재하지 않습니다."),
 
     // 이미지
-    FAILED_REGISTER_POST_IMAGE(400, "이미지가 저장되지 않았습니다.");
+    FAILED_REGISTER_IMAGE(400, "이미지가 저장되지 않았습니다."),
+
+    // 저널 타입
+    INVALID_JOURNAL_TYPE(400, "잘못된 Journal Type입니다.");
 
 
     ErrorCode(int status, String message) {

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Journal extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long journalId;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private JournalType journalType;
 
@@ -40,10 +42,10 @@ public class Journal extends BaseEntity {
     @JoinColumn(name = "journal_id")
     private List<JournalImage> journalImages = new ArrayList<>();
 
-    @PersistenceConstructor
+    @PersistenceCreator
     public Journal(Long journalId, JournalType journalType, String title, String content, String author) {
         this.journalId = journalId;
-        journalType = journalType;
+        this.journalType = journalType;
         this.title = title;
         this.content = content;
         this.author = author;

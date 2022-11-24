@@ -50,5 +50,9 @@ public class FileService {
         return objectMetadata;
     }
 
+    public String getImageUrl(String fileName) {
+        return amazonS3Client.getUrl(S3Bucket, fileName).toString();
+    }
+
 
 }
