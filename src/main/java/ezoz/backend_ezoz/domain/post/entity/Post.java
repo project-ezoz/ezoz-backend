@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @Document(indexName = "posts")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Post extends BaseEntity {
+public class Post {
 
     @Id
     @org.springframework.data.annotation.Id

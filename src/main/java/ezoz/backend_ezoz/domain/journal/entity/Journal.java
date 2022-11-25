@@ -5,8 +5,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.PersistenceConstructor;
-import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
@@ -17,7 +15,7 @@ import java.util.List;
 @Getter
 @Document(indexName = "journals")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Journal extends BaseEntity {
+public class Journal {
 
     @Id
     @org.springframework.data.annotation.Id
@@ -41,15 +39,6 @@ public class Journal extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "journal_id")
     private List<JournalImage> journalImages = new ArrayList<>();
-
-    @PersistenceCreator
-    public Journal(Long journalId, JournalType journalType, String title, String content, String author) {
-        this.journalId = journalId;
-        this.journalType = journalType;
-        this.title = title;
-        this.content = content;
-        this.author = author;
-    }
 
     @Builder
     public Journal(JournalType journalType, String title, String content, String author, List<JournalImage> journalImages) {

@@ -2,9 +2,7 @@ package ezoz.backend_ezoz.domain.journal.repository.elasticsearch.custom;
 
 import ezoz.backend_ezoz.domain.journal.entity.Journal;
 import ezoz.backend_ezoz.domain.journal.entity.JournalType;
-import ezoz.backend_ezoz.domain.post.entity.Post;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
@@ -24,7 +22,7 @@ public class CustomJournalSearchRepositoryImpl implements CustomJournalSearchRep
         Criteria criteria = Criteria.where("title").contains(keyword)
                 .or(Criteria.where("content").contains(keyword))
                 .or(Criteria.where("author").contains(keyword))
-                .and(Criteria.where("journalType").contains(journalType.toString()));
+                .and(Criteria.where("journalType").is(journalType.toString()));
 
         SearchHits<Journal> search = elasticsearchOperations
                 .search(new CriteriaQuery(criteria),

@@ -24,7 +24,7 @@ public class JournalService {
 
         return savedId.getJournalId();
     }
-    public List<Journal> searchByKeywordWithPaging(String keyword, JournalType journalType, int page) {
-        return journalSearchRepository.searchByKeywordWithPaging(keyword, journalType, page);
+    public List<Journal> searchByKeywordWithPaging(String keyword, JournalType journalType, int offset) {
+        return journalSearchRepository.searchByKeywordWithPaging(keyword, journalType, offset);
     }
 }
