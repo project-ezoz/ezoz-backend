@@ -33,6 +33,7 @@ public class PostApiController {
         }
         Long saveId = postApiService.registerPost(postRequestDto);
 
+
         return ResponseEntity.ok(saveId);
     }
 
