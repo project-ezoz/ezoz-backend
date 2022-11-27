@@ -28,18 +28,10 @@ public class PostApiService {
 
     public Long registerPost(PostDto.Request postRequestDto) {
 
-
         List<PostImage> postImages = new ArrayList<>();
         registerPostImages(postImages, postRequestDto.getPostImageFiles());
 
-        // TODO: 2022. 11. 23. dto 안으로 생성 집어넣기
-        Post post = PostDto.Request.toPostEntity(
-                postRequestDto.getCoordinate(),
-                postRequestDto.getAddress(),
-                postRequestDto.getTitle(),
-                postRequestDto.getContent(),
-                postImages
-        );
+        Post post = postRequestDto.toEntity(postImages);
 
         return postService.registerPost(post);
     }

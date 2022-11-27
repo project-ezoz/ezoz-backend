@@ -13,6 +13,7 @@ import ezoz.backend_ezoz.infra.FileService;
 import ezoz.backend_ezoz.infra.UploadFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -30,21 +31,22 @@ public class JournalApiService {
     public Long registerJournal(JournalDto.Request journalRequestDto) {
 
         List<JournalImage> journalImages = new ArrayList<>();
-        for (MultipartFile multipartFile : journalRequestDto.getJournalImageFiles()) {
 
+        for (MultipartFile multipartFile : journalRequestDto.getJournalImageFiles()) {
             try {
                 UploadFile uploadFile = fileService.storeFile(multipartFile);
                 journalImages.add(uploadFile.createJournalImage());
             } catch (IOException e) {
                 throw new BusinessException(ErrorCode.FAILED_REGISTER_IMAGE);
             }
-
         }
 
         Journal journal = journalRequestDto.toEntity("ckdgus", journalImages);
 
         return journalService.save(journal);
     }
+
+
 
     public List<JournalDto.Response> searchByKeywordWithPaging(String keyword, String type, int page) {
 

@@ -33,6 +33,16 @@ public class PostDto {
 
         private List<MultipartFile> postImageFiles;
 
+        public Post toEntity(List<PostImage> postImages) {
+            return Post.builder()
+                    .location(new Location(coordinate, address))
+                    .title(title)
+                    .content(content)
+                    .author("ckdgus")
+                    .postImages(postImages)
+                    .build();
+        }
+
         public static Post toPostEntity(String coordinate, String address, String title,
                                         String content, List<PostImage> postImages) {
             return Post.builder()
