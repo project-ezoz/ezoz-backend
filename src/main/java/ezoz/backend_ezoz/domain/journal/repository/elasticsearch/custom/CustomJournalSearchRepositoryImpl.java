@@ -3,6 +3,7 @@ package ezoz.backend_ezoz.domain.journal.repository.elasticsearch.custom;
 import ezoz.backend_ezoz.domain.journal.entity.Journal;
 import ezoz.backend_ezoz.domain.journal.entity.JournalType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
@@ -25,7 +26,7 @@ public class CustomJournalSearchRepositoryImpl implements CustomJournalSearchRep
                 .and(Criteria.where("journalType").is(journalType.toString()));
 
         SearchHits<Journal> search = elasticsearchOperations
-                .search(new CriteriaQuery(criteria),
+                .search(new CriteriaQuery(criteria, PageRequest.of(page, 6)),
                 Journal.class);
 
         return search.stream()

@@ -10,11 +10,10 @@ import java.util.List;
 public class ImageValidator {
     public boolean notExistFileName(List<MultipartFile> multipartFiles) {
         for (MultipartFile multipartFile : multipartFiles) {
-            if (!StringUtils.hasText(multipartFile.getName())) {
+            if (!StringUtils.hasText(multipartFile.getOriginalFilename())) {
                 return true;
             }
         }
-
         return false;
     }
 }

@@ -31,8 +31,16 @@ public class JournalApiService {
     public Long registerJournal(JournalDto.Request journalRequestDto) {
 
         List<JournalImage> journalImages = new ArrayList<>();
+        registerJournalImages(journalImages, journalRequestDto.getJournalImageFiles());
 
-        for (MultipartFile multipartFile : journalRequestDto.getJournalImageFiles()) {
+        Journal journal = journalRequestDto.toEntity("ckdgus", journalImages);
+
+        return journalService.save(journal);
+    }
+
+    private void registerJournalImages(List<JournalImage> journalImages, List<MultipartFile> multipartFiles) {
+
+        for (MultipartFile multipartFile : multipartFiles) {
             try {
                 UploadFile uploadFile = fileService.storeFile(multipartFile);
                 journalImages.add(uploadFile.createJournalImage());
@@ -40,10 +48,6 @@ public class JournalApiService {
                 throw new BusinessException(ErrorCode.FAILED_REGISTER_IMAGE);
             }
         }
-
-        Journal journal = journalRequestDto.toEntity("ckdgus", journalImages);
-
-        return journalService.save(journal);
     }
 
 

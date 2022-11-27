@@ -31,23 +31,19 @@ public class PostApiService {
         List<PostImage> postImages = new ArrayList<>();
         registerPostImages(postImages, postRequestDto.getPostImageFiles());
 
-        Post post = postRequestDto.toEntity(postImages);
+        Post post = postRequestDto.toEntity("ckdgus", postImages);
 
         return postService.registerPost(post);
     }
 
     private void registerPostImages(List<PostImage> postImages, List<MultipartFile> multipartFiles) {
 
-        if (multipartFiles == null) {
-            return;
-        }
-
         for (MultipartFile multipartFile : multipartFiles) {
             try {
                 UploadFile uploadFile = fileService.storeFile(multipartFile);
                 postImages.add(uploadFile.createPostImage());
             } catch (IOException e) {
-                throw new BusinessException(ErrorCode.FAILED_REGISTER_IMAGE);
+                throw new BusinessException(ErrorCode.FAILED_REGISTER_IMAGE, e);
             }
         }
 
