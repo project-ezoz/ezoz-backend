@@ -49,6 +49,7 @@ public class PostDto {
     @AllArgsConstructor
     public static class Response {
 
+        private Long postId;
         private String coordinate;
         private String address;
         private String title;
@@ -58,6 +59,7 @@ public class PostDto {
         public static PostDto.Response from(Post post) {
             Location location = post.getLocation();
             return Response.builder()
+                    .postId(post.getPostId())
                     .coordinate(location.getCoordinate())
                     .address(location.getAddress())
                     .title(post.getTitle())

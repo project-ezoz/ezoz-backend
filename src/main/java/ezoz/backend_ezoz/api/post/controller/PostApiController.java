@@ -36,7 +36,6 @@ public class PostApiController {
         return ResponseEntity.ok(saveId);
     }
 
-
     @GetMapping("/posts/{keyword}")
     public ResponseEntity<List<PostDto.Response>> searchByES(@PathVariable String keyword) {
         List<PostDto.Response> postResponses = postApiService.searchByKeyword(keyword);

@@ -15,6 +15,8 @@ google:
     secret: ENC(FJGpnbaGoFG5QyNSvsUxc26AHVg6wq8QzLmWZTgyRwQIggU05kaOdoBxtIXdz1iH)
   callback-uri: http://localhost:8080/google/code
 
+elastic:
+  url: localhost:9200
 #google:
 #  client:
 #    id: ENC(6SOx0fH70XMUW9lCNpbDnckPTDRbNUr+HiRMXUauNj3/dLFKwA9Xt+YCaBx9jFqX4jYMsxSjmDFmP3SoehRXdM5O4FHJTBggVqQDdEgXgoeCOPvWW/pzaw==)

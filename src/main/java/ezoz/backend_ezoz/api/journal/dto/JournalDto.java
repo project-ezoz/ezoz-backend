@@ -46,12 +46,15 @@ public class JournalDto {
     @AllArgsConstructor
     public static class Response {
 
+        private Long journalId;
+
         private String title;
 
         private String JournalImageUrl;
 
-        public static JournalDto.Response of(String title, String journalImageUrl) {
+        public static JournalDto.Response of(Long journalId, String title, String journalImageUrl) {
             return Response.builder()
+                    .journalId(journalId)
                     .title(title)
                     .JournalImageUrl(journalImageUrl)
                     .build();

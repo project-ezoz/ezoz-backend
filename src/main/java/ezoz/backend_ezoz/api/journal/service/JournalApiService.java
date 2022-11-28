@@ -50,19 +50,15 @@ public class JournalApiService {
         }
     }
 
-
-
     public List<JournalDto.Response> searchByKeywordWithPaging(String keyword, String type, int page) {
 
-        List<Journal> journalList = journalService.searchByKeywordWithPaging(
-                keyword,
-                JournalType.from(type),
-                page);
+        List<Journal> journalList =
+                journalService.searchByKeywordWithPaging(keyword, JournalType.from(type), page);
 
         List<JournalDto.Response> journalResponseList = new ArrayList<>();
         for (Journal journal : journalList) {
             String fileKey = journal.getJournalImages().get(0).getStoreFileName();
-            journalResponseList.add(JournalDto.Response.of(journal.getTitle(), fileKey));
+            journalResponseList.add(JournalDto.Response.of(journal.getJournalId(), journal.getTitle(), fileKey));
         }
 
         return journalResponseList;
