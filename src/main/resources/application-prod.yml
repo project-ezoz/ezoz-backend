@@ -9,6 +9,7 @@ spring:
     password: ENC(9BLP+Yas2QsUt2fDpehP5dpwYMhtXo2Y)
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+
   jpa:
     hibernate:
       ddl-auto: create
@@ -18,3 +19,6 @@ google:
     id: ENC(jyFppUjjpuMriawAwTyuZuZ+CunF9q/GMsh5Kyohp27vMbV/Rw/M/sCEuTMVl2JdftTWIf7lJqVcURGdJqzbWCTgS/Y9xgLT+txoFScBckJII40YejzrcQ==)
     secret: ENC(FJGpnbaGoFG5QyNSvsUxc26AHVg6wq8QzLmWZTgyRwQIggU05kaOdoBxtIXdz1iH)
   callback-uri: http://localhost:4000/auth/google/callback
+
+elastic:
+  url: ENC(xxTq9nyo1e8J9TKPS94WTlzQJG+hnabtO1suPgHntJM=)

@@ -2,6 +2,7 @@ package ezoz.backend_ezoz.global.config;
 
 import ezoz.backend_ezoz.domain.journal.repository.elasticsearch.JournalSearchRepository;
 import ezoz.backend_ezoz.domain.post.repository.elasticsearch.PostSearchRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfiguration;
@@ -12,10 +13,13 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @Configuration
 public class ElasticSearchConfig extends ElasticsearchConfiguration {
 
+    @Value("${elastic.url}")
+    private String elasticUrl;
+
     @Override
     public ClientConfiguration clientConfiguration() {
         return ClientConfiguration.builder()
-                .connectedTo("localhost:9200")
+                .connectedTo(elasticUrl)
                 .build();
     }
 }
