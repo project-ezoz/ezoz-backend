@@ -1,7 +1,7 @@
 package ezoz.backend_ezoz.api.journal.service;
 
+import ezoz.backend_ezoz.api.journal.dto.JournalDetailDto;
 import ezoz.backend_ezoz.api.journal.dto.JournalDto;
-import ezoz.backend_ezoz.api.journal.dto.JournalSearchDto;
 import ezoz.backend_ezoz.domain.journal.entity.Journal;
 import ezoz.backend_ezoz.domain.journal.entity.JournalImage;
 import ezoz.backend_ezoz.domain.journal.entity.JournalType;
@@ -13,7 +13,6 @@ import ezoz.backend_ezoz.infra.FileService;
 import ezoz.backend_ezoz.infra.UploadFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -62,6 +61,19 @@ public class JournalApiService {
         }
 
         return journalResponseList;
+    }
+
+    public JournalDetailDto getJournalDetail(Long journalId) {
+
+        Journal journal = journalService.findById(journalId);
+
+        List<String> journalImageUrls = new ArrayList<>();
+        for (JournalImage journalImage : journal.getJournalImages()) {
+            String imageUrl = fileService.getImageUrl(journalImage.getOriginalFileName());
+            journalImageUrls.add(imageUrl);
+        }
+
+        return JournalDetailDto.of(journal, journalImageUrls);
     }
 
 }

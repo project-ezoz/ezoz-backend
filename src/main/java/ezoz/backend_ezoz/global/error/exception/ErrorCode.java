@@ -30,10 +30,14 @@ public enum ErrorCode {
 
     // 이미지
     FAILED_REGISTER_IMAGE(400, "이미지가 저장되지 않았습니다."),
-    NON_EXISTS_IMAGE(400, "이미지가 없습니다."),
+    IMAGE_NOT_EXISTS(400, "첨부된 이미지가 없습니다."),
 
-    // 저널 타입
-    INVALID_JOURNAL_TYPE(400, "잘못된 Journal Type입니다.");
+    // 저널
+    JOURNAL_NOT_EXISTS(400, "해당 저널은 존재하지 않습니다."),
+    INVALID_JOURNAL_TYPE(400, "잘못된 Journal Type입니다."),
+
+    // 포스트
+    POST_NOT_EXISTS(400, "해당 포스트는 존재하지 않습니다.");
 
 
     ErrorCode(int status, String message) {

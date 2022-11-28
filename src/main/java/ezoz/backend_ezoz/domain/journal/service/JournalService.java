@@ -4,6 +4,8 @@ import ezoz.backend_ezoz.domain.journal.entity.Journal;
 import ezoz.backend_ezoz.domain.journal.entity.JournalType;
 import ezoz.backend_ezoz.domain.journal.repository.JournalRepository;
 import ezoz.backend_ezoz.domain.journal.repository.elasticsearch.JournalSearchRepository;
+import ezoz.backend_ezoz.global.error.exception.EntityNotFoundException;
+import ezoz.backend_ezoz.global.error.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +26,13 @@ public class JournalService {
 
         return savedId.getJournalId();
     }
+
     public List<Journal> searchByKeywordWithPaging(String keyword, JournalType journalType, int offset) {
         return journalSearchRepository.searchByKeywordWithPaging(keyword, journalType, offset);
+    }
+
+    public Journal findById(Long journalId) {
+        return journalRepository.findById(journalId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.JOURNAL_NOT_EXISTS));
     }
 }

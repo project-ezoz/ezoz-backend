@@ -1,5 +1,6 @@
 package ezoz.backend_ezoz.api.post.service;
 
+import ezoz.backend_ezoz.api.post.dto.PostDetailDto;
 import ezoz.backend_ezoz.api.post.dto.PostDto;
 import ezoz.backend_ezoz.domain.post.entity.Post;
 import ezoz.backend_ezoz.domain.post.service.PostService;
@@ -53,5 +54,20 @@ public class PostApiService {
         return postService.searchByKeyword(keyword).stream()
                 .map(PostDto.Response::from)
                 .collect(Collectors.toList());
+    }
+
+    public PostDetailDto getPostDetail(Long postId) {
+
+        Post post = postService.findById(postId);
+
+        List<String> postImageUrls = new ArrayList<>();
+        for (PostImage postImage : post.getPostImages()) {
+            String originalFileName = postImage.getOriginalFileName();
+            String imageUrl = fileService.getImageUrl(originalFileName);
+            postImageUrls.add(imageUrl);
+        }
+
+        return PostDetailDto.of(post, postImageUrls);
+
     }
 }

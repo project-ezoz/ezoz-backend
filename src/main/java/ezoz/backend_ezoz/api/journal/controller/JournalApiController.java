@@ -1,7 +1,7 @@
 package ezoz.backend_ezoz.api.journal.controller;
 
+import ezoz.backend_ezoz.api.journal.dto.JournalDetailDto;
 import ezoz.backend_ezoz.api.journal.dto.JournalDto;
-import ezoz.backend_ezoz.api.journal.dto.JournalSearchDto;
 import ezoz.backend_ezoz.api.journal.service.JournalApiService;
 import ezoz.backend_ezoz.domain.journal.entity.JournalType;
 import ezoz.backend_ezoz.global.error.exception.BusinessException;
@@ -27,7 +27,7 @@ public class JournalApiController {
 
         List<MultipartFile> journalImageFiles = journalRequestDto.getJournalImageFiles();
         if (journalImageFiles == null || imageValidator.notExistFileName(journalImageFiles)) {
-            throw new BusinessException(ErrorCode.NON_EXISTS_IMAGE);
+            throw new BusinessException(ErrorCode.IMAGE_NOT_EXISTS);
         }
         Long savedId = journalApiService.registerJournal(journalRequestDto);
 
@@ -45,5 +45,13 @@ public class JournalApiController {
         List<JournalDto.Response> responses = journalApiService.searchByKeywordWithPaging(keyword, type, page);
 
         return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/journal/{journalId}")
+    public ResponseEntity<JournalDetailDto> getJournalDetail(@PathVariable Long journalId) {
+
+        JournalDetailDto journalDetail = journalApiService.getJournalDetail(journalId);
+
+        return ResponseEntity.ok(journalDetail);
     }
 }

@@ -3,6 +3,8 @@ package ezoz.backend_ezoz.domain.post.service;
 import ezoz.backend_ezoz.domain.post.entity.Post;
 import ezoz.backend_ezoz.domain.post.repository.PostRepository;
 import ezoz.backend_ezoz.domain.post.repository.elasticsearch.PostSearchRepository;
+import ezoz.backend_ezoz.global.error.exception.EntityNotFoundException;
+import ezoz.backend_ezoz.global.error.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,5 +30,10 @@ public class PostService {
 
     public List<Post> searchByKeyword(String keyword) {
         return postSearchRepository.findByKeyword(keyword);
+    }
+
+    public Post findById(Long postId) {
+        return postRepository.findById(postId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.NOT_VALID_TOKEN));
     }
 }
