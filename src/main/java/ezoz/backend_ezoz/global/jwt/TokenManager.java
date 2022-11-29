@@ -1,11 +1,10 @@
 package ezoz.backend_ezoz.global.jwt;
 
-import ezoz.backend_ezoz.domain.jwt.constant.GrantType;
 import ezoz.backend_ezoz.domain.jwt.constant.TokenType;
 import ezoz.backend_ezoz.domain.jwt.entity.Token;
-import ezoz.backend_ezoz.global.error.exception.jwt.NotValidTokenException;
 import ezoz.backend_ezoz.domain.member.constant.MemberRole;
 import ezoz.backend_ezoz.global.error.exception.ErrorCode;
+import ezoz.backend_ezoz.global.error.exception.jwt.NotValidTokenException;
 import ezoz.backend_ezoz.global.util.DateTimeUtils;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
