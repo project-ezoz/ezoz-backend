@@ -20,6 +20,7 @@ public class JournalService {
     private final JournalRepository journalRepository;
     private final JournalSearchRepository journalSearchRepository;
 
+    @Transactional
     public Long save(Journal journal) {
         Journal savedId = journalRepository.save(journal);
         journalSearchRepository.save(journal);
