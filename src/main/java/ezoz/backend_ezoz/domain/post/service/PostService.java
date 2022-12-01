@@ -34,6 +34,6 @@ public class PostService {
 
     public Post findByIdFetchImage(Long postId) {
         return postRepository.findByIdFetchImage(postId)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.NOT_VALID_TOKEN));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.POST_NOT_EXISTS));
     }
 }
