@@ -32,8 +32,8 @@ public class PostService {
         return postSearchRepository.findByKeyword(keyword);
     }
 
-    public Post findById(Long postId) {
-        return postRepository.findById(postId)
+    public Post findByIdFetchImage(Long postId) {
+        return postRepository.findByIdFetchImage(postId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.NOT_VALID_TOKEN));
     }
 }

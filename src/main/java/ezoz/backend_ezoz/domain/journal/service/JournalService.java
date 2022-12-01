@@ -32,8 +32,8 @@ public class JournalService {
         return journalSearchRepository.searchByKeywordWithPaging(keyword, journalType, offset);
     }
 
-    public Journal findById(Long journalId) {
-        return journalRepository.findById(journalId)
+    public Journal findByIdFetchImage(Long journalId) {
+        return journalRepository.findByIdFetchImage(journalId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.JOURNAL_NOT_EXISTS));
     }
 }

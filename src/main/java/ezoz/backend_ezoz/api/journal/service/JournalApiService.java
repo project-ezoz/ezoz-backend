@@ -65,7 +65,7 @@ public class JournalApiService {
 
     public JournalDetailDto getJournalDetail(Long journalId) {
 
-        Journal journal = journalService.findById(journalId);
+        Journal journal = journalService.findByIdFetchImage(journalId);
 
         List<String> journalImageUrls = new ArrayList<>();
         for (JournalImage journalImage : journal.getJournalImages()) {

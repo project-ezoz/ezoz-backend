@@ -58,7 +58,7 @@ public class PostApiService {
 
     public PostDetailDto getPostDetail(Long postId) {
 
-        Post post = postService.findById(postId);
+        Post post = postService.findByIdFetchImage(postId);
 
         List<String> postImageUrls = new ArrayList<>();
         for (PostImage postImage : post.getPostImages()) {
