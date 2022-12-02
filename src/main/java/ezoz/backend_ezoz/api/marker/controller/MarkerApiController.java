@@ -21,7 +21,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @Api(tags = "Marker")
 @RequiredArgsConstructor
-public class PostApiController {
+public class MarkerApiController {
 
     private final MarkerApiService markerApiService;
     private final ImageValidator imageValidator;
