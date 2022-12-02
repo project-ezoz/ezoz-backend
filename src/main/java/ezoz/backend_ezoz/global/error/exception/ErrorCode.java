@@ -36,8 +36,8 @@ public enum ErrorCode {
     JOURNAL_NOT_EXISTS(400, "해당 저널은 존재하지 않습니다."),
     INVALID_JOURNAL_TYPE(400, "잘못된 Journal Type입니다."),
 
-    // 포스트
-    POST_NOT_EXISTS(400, "해당 포스트는 존재하지 않습니다.");
+    // 마커
+    MARKER_NOT_EXISTS(400, "해당 포스트는 존재하지 않습니다.");
 
 
     ErrorCode(int status, String message) {

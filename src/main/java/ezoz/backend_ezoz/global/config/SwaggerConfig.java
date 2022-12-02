@@ -35,7 +35,7 @@ public class SwaggerConfig {
                 .tags(new Tag("Token", "토큰 재발급과 로그아웃 관련 API를 제공"))
                 .tags(new Tag("Health", "서버가 살아있는지 죽어있는지 확인하기"))
                 .tags(new Tag("Subscription", "구독자 등록 API를 제공"))
-                .tags(new Tag("Post", "맵에 보여지는 마커의 조회, 수정, 삭제 API를 제공"))
+                .tags(new Tag("Marker", "맵에 보여지는 마커의 조회, 수정, 삭제 API를 제공"))
                 .tags(new Tag("Journal", "저널의 조회, 수정, 삭제 API를 제공"));
     }
 

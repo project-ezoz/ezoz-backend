@@ -1,4 +1,4 @@
-package ezoz.backend_ezoz.domain.post.entity;
+package ezoz.backend_ezoz.domain.marker.entity;
 
 import lombok.*;
 

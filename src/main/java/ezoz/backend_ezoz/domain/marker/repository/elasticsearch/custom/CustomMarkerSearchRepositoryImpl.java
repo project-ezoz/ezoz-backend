@@ -1,6 +1,6 @@
-package ezoz.backend_ezoz.domain.post.repository.elasticsearch.custom;
+package ezoz.backend_ezoz.domain.marker.repository.elasticsearch.custom;
 
-import ezoz.backend_ezoz.domain.post.entity.Post;
+import ezoz.backend_ezoz.domain.marker.entity.Marker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
@@ -12,17 +12,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class CustomPostSearchRepositoryImpl implements CustomPostSearchRepository {
+public class CustomMarkerSearchRepositoryImpl implements CustomMarkerSearchRepository {
 
     private final ElasticsearchOperations elasticsearchOperations;
 
     @Override
-    public List<Post> findByKeyword(String keyword) {
+    public List<Marker> findByKeyword(String keyword) {
         Criteria criteria = Criteria.where("title").contains(keyword)
                 .or(Criteria.where("content").contains(keyword))
                 .or(Criteria.where("author").contains(keyword));
 
-        SearchHits<Post> search = elasticsearchOperations.search(new CriteriaQuery(criteria), Post.class);
+        SearchHits<Marker> search = elasticsearchOperations.search(new CriteriaQuery(criteria), Marker.class);
 
         return search.stream()
                 .map(SearchHit::getContent)

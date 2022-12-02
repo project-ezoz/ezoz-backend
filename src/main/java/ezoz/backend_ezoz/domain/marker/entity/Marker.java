@@ -1,11 +1,9 @@
-package ezoz.backend_ezoz.domain.post.entity;
+package ezoz.backend_ezoz.domain.marker.entity;
 
-import ezoz.backend_ezoz.domain.common.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
@@ -14,14 +12,14 @@ import java.util.List;
 
 @Entity
 @Getter
-@Document(indexName = "posts")
+@Document(indexName = "markers")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Post {
+public class Marker {
 
     @Id
     @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long postId;
+    private Long markerId;
 
     @Embedded
     private Location location;
@@ -38,23 +36,14 @@ public class Post {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "post_id")
-    private List<PostImage> postImages = new ArrayList<>();
+    private List<MarkerImage> markerImages = new ArrayList<>();
 
     @Builder
-    public Post(Location location, String title, String content, String author, List<PostImage> postImages) {
+    public Marker(Location location, String title, String content, String author, List<MarkerImage> markerImages) {
         this.location = location;
         this.title = title;
         this.content = content;
         this.author = author;
-        this.postImages = postImages;
-    }
-
-    @PersistenceConstructor
-    public Post(Long postId, Location location, String title, String content, String author) {
-        this.postId = postId;
-        this.location = location;
-        this.title = title;
-        this.content = content;
-        this.author = author;
+        this.markerImages = markerImages;
     }
 }

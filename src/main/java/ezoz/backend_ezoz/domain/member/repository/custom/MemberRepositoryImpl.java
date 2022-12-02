@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
-import static ezoz.backend_ezoz.domain.jwt.entity.QToken.*;
-import static ezoz.backend_ezoz.domain.member.entity.QMember.*;
+import static ezoz.backend_ezoz.domain.jwt.entity.QToken.token;
+import static ezoz.backend_ezoz.domain.member.entity.QMember.member;
 
 @RequiredArgsConstructor
 public class MemberRepositoryImpl implements MemberRepositoryCustom{

@@ -1,8 +1,8 @@
-package ezoz.backend_ezoz.api.post.controller;
+package ezoz.backend_ezoz.api.marker.controller;
 
-import ezoz.backend_ezoz.api.post.dto.PostDetailDto;
-import ezoz.backend_ezoz.api.post.dto.PostDto;
-import ezoz.backend_ezoz.api.post.service.PostApiService;
+import ezoz.backend_ezoz.api.marker.dto.MarkerDetailDto;
+import ezoz.backend_ezoz.api.marker.dto.MarkerDto;
+import ezoz.backend_ezoz.api.marker.service.MarkerApiService;
 import ezoz.backend_ezoz.global.error.exception.BusinessException;
 import ezoz.backend_ezoz.global.error.exception.ErrorCode;
 import ezoz.backend_ezoz.global.validator.ImageValidator;
@@ -19,43 +19,43 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@Api(tags = "Post")
+@Api(tags = "Marker")
 @RequiredArgsConstructor
 public class PostApiController {
 
-    private final PostApiService postApiService;
+    private final MarkerApiService markerApiService;
     private final ImageValidator imageValidator;
 
-    @PostMapping(value = "/posts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/marker", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "마커 생성 API", notes = "마커를 새로 등록한다.")
-    public ResponseEntity<?> registerPost(PostDto.Request postRequestDto, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<?> registerPost(MarkerDto.Request markerRequestDto, HttpServletRequest httpServletRequest) {
 
 //        String authorizationHeader = httpServletRequest.getHeader("Authorization");
 //        String accessToken = authorizationHeader.split(" ")[1];
 
-        List<MultipartFile> postImageFiles = postRequestDto.getPostImageFiles();
-        if (postImageFiles == null || imageValidator.notExistFileName(postImageFiles)) {
+        List<MultipartFile> markerImageFiles = markerRequestDto.getMarkerImageFiles();
+        if (markerImageFiles == null || imageValidator.notExistFileName(markerImageFiles)) {
             throw new BusinessException(ErrorCode.IMAGE_NOT_EXISTS);
         }
-        Long saveId = postApiService.registerPost(postRequestDto);
+        Long saveId = markerApiService.registerMarker(markerRequestDto);
 
         return ResponseEntity.ok(saveId);
     }
 
-    @GetMapping("/posts")
+    @GetMapping("/marker")
     @ApiOperation(value = "마커 검색 API", notes = "키워드에 따라 추출된 마커를 제공한다.")
-    public ResponseEntity<List<PostDto.Response>> searchByES(@RequestParam String keyword) {
-        List<PostDto.Response> postResponses = postApiService.searchByKeyword(keyword);
+    public ResponseEntity<List<MarkerDto.Response>> searchByES(@RequestParam String keyword) {
+        List<MarkerDto.Response> markerResponses = markerApiService.searchByKeyword(keyword);
 
-        return ResponseEntity.ok(postResponses);
+        return ResponseEntity.ok(markerResponses);
     }
 
-    @GetMapping("/posts/{postId}")
+    @GetMapping("/marker/{markerId}")
     @ApiOperation(value = "마커 조회 API", notes = "마커 id를 통해 해당하는 마커를 제공한다.")
-    public ResponseEntity<PostDetailDto> getPostDetail(@PathVariable Long postId) {
+    public ResponseEntity<MarkerDetailDto> getMarkerDetail(@PathVariable Long markerId) {
 
-        PostDetailDto postDetail = postApiService.getPostDetail(postId);
+        MarkerDetailDto markerDetail = markerApiService.getMarkerDetail(markerId);
 
-        return ResponseEntity.ok(postDetail);
+        return ResponseEntity.ok(markerDetail);
     }
 }

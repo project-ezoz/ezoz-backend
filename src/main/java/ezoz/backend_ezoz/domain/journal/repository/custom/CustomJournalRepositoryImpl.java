@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
-import static ezoz.backend_ezoz.domain.journal.entity.QJournal.*;
-import static ezoz.backend_ezoz.domain.journal.entity.QJournalImage.*;
+import static ezoz.backend_ezoz.domain.journal.entity.QJournal.journal;
+import static ezoz.backend_ezoz.domain.journal.entity.QJournalImage.journalImage;
 
 @RequiredArgsConstructor
 public class CustomJournalRepositoryImpl implements CustomJournalRepository {

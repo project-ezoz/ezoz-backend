@@ -1,7 +1,6 @@
-package ezoz.backend_ezoz.domain.post.entity;
+package ezoz.backend_ezoz.domain.marker.entity;
 
 import lombok.*;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +11,7 @@ import javax.persistence.Id;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostImage {
+public class MarkerImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +22,7 @@ public class PostImage {
     private String storeFileName; // 저장된 파일 이름
 
     @Builder
-    public PostImage(String originalFileName, String storeFileName) {
+    public MarkerImage(String originalFileName, String storeFileName) {
         this.originalFileName = originalFileName;
         this.storeFileName = storeFileName;
     }
