@@ -50,6 +50,10 @@ public class FileService {
         return objectMetadata;
     }
 
+    public void removeImage(String fileName) {
+        amazonS3Client.deleteObject(S3Bucket, fileName);
+    }
+
     public String getImageUrl(String fileName) {
         return amazonS3Client.getUrl(S3Bucket, fileName).toString();
     }

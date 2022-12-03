@@ -2,6 +2,7 @@ package ezoz.backend_ezoz.api.marker.controller;
 
 import ezoz.backend_ezoz.api.marker.dto.MarkerDetailDto;
 import ezoz.backend_ezoz.api.marker.dto.MarkerDto;
+import ezoz.backend_ezoz.api.marker.dto.UpdateMarkerDto;
 import ezoz.backend_ezoz.api.marker.service.MarkerApiService;
 import ezoz.backend_ezoz.global.error.exception.BusinessException;
 import ezoz.backend_ezoz.global.error.exception.ErrorCode;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,13 +30,13 @@ public class MarkerApiController {
 
     @PostMapping(value = "/marker", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "마커 생성 API", notes = "마커를 새로 등록한다.")
-    public ResponseEntity<?> registerPost(MarkerDto.Request markerRequestDto, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<?> registerPost(@Valid MarkerDto.Request markerRequestDto, HttpServletRequest httpServletRequest) {
 
 //        String authorizationHeader = httpServletRequest.getHeader("Authorization");
 //        String accessToken = authorizationHeader.split(" ")[1];
 
         List<MultipartFile> markerImageFiles = markerRequestDto.getMarkerImageFiles();
-        if (markerImageFiles == null || imageValidator.notExistFileName(markerImageFiles)) {
+        if (imageValidator.notExistFileName(markerImageFiles)) {
             throw new BusinessException(ErrorCode.IMAGE_NOT_EXISTS);
         }
         Long saveId = markerApiService.registerMarker(markerRequestDto);
@@ -57,5 +59,13 @@ public class MarkerApiController {
         MarkerDetailDto markerDetail = markerApiService.getMarkerDetail(markerId);
 
         return ResponseEntity.ok(markerDetail);
+    }
+
+    @PutMapping("/marker")
+    @ApiOperation(value = "마커 수정 API", notes = "수정된 데이터 요청에 따라 마커를 변경한다.")
+    public ResponseEntity<?> editMarker(@Valid UpdateMarkerDto updateMarkerDto) {
+        markerApiService.editMarker(updateMarkerDto);
+
+        return ResponseEntity.ok("ok");
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,11 +31,11 @@ public class JournalApiController {
 
     @PostMapping(value = "/journal", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "저널 생성 API", notes = "저널을 새로 작성한다.")
-    public ResponseEntity<?> registerJournal(JournalDto.Request journalRequestDto) {
+    public ResponseEntity<?> registerJournal(@Valid JournalDto.Request journalRequestDto) {
 
 
         List<MultipartFile> journalImageFiles = journalRequestDto.getJournalImageFiles();
-        if (journalImageFiles == null || imageValidator.notExistFileName(journalImageFiles)) {
+        if (imageValidator.notExistFileName(journalImageFiles)) {
             throw new BusinessException(ErrorCode.IMAGE_NOT_EXISTS);
         }
         Long savedId = journalApiService.registerJournal(journalRequestDto);

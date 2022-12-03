@@ -46,4 +46,12 @@ public class Marker {
         this.author = author;
         this.markerImages = markerImages;
     }
+
+    public void updateTitle(String title) {
+        this.title = title;
+    }
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
 }

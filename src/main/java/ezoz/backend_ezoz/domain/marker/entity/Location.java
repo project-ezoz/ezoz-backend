@@ -15,4 +15,11 @@ public class Location {
 
     private String address;
 
+    public void updateCoordinate(String coordinate) {
+        this.coordinate = coordinate;
+    }
+
+    public void updateAddress(String address) {
+        this.address = address;
+    }
 }
