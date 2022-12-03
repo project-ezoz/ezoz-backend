@@ -69,7 +69,7 @@ public class JournalApiService {
 
         List<String> journalImageUrls = new ArrayList<>();
         for (JournalImage journalImage : journal.getJournalImages()) {
-            String imageUrl = fileService.getImageUrl(journalImage.getOriginalFileName());
+            String imageUrl = fileService.getImageUrl(journalImage.getStoreFileName());
             journalImageUrls.add(imageUrl);
         }
 
