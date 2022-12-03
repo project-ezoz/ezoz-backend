@@ -62,8 +62,8 @@ public class MarkerApiService {
 
         List<String> markerImageUrls = new ArrayList<>();
         for (MarkerImage markerImage : marker.getMarkerImages()) {
-            String originalFileName = markerImage.getOriginalFileName();
-            String imageUrl = fileService.getImageUrl(originalFileName);
+            String storeFileName = markerImage.getStoreFileName();
+            String imageUrl = fileService.getImageUrl(storeFileName);
             markerImageUrls.add(imageUrl);
         }
 
