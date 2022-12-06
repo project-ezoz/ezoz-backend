@@ -31,6 +31,7 @@ public enum ErrorCode {
     // 이미지
     FAILED_REGISTER_IMAGE(500, "이미지가 저장되지 않았습니다."),
     IMAGE_NOT_EXISTS(400, "첨부된 이미지가 없습니다."),
+    DUPLICATED_IMAGE_NAME(400, "중복된 이미지 이름이 존재합니다."),
 
     // 저널
     JOURNAL_NOT_EXISTS(400, "해당 저널은 존재하지 않습니다."),

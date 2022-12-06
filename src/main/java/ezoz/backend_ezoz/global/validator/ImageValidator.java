@@ -1,13 +1,17 @@
 package ezoz.backend_ezoz.global.validator;
 
+import ezoz.backend_ezoz.domain.marker.entity.MarkerImage;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class ImageValidator {
+
     public boolean notExistFileName(List<MultipartFile> multipartFiles) {
 
         if (multipartFiles == null) {
@@ -20,7 +24,20 @@ public class ImageValidator {
             }
         }
 
-        // TODO: 2022/12/03 똑같은 이름을 가진 이미지가 있을 수 없게 검증 로직 작성
         return false;
     }
+
+    public boolean duplicateImageName(List<MultipartFile> multipartFiles) {
+
+        Set<String> fileNameSet = new HashSet<>();
+
+        for (MultipartFile multipartFile : multipartFiles) {
+            if (!fileNameSet.contains(multipartFile.getName())) {
+                fileNameSet.add(multipartFile.getName());
+            } else return true;
+        }
+
+        return false;
+    }
+
 }

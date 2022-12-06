@@ -63,8 +63,16 @@ public class MarkerApiController {
 
     @PutMapping("/marker")
     @ApiOperation(value = "마커 수정 API", notes = "수정된 데이터 요청에 따라 마커를 변경한다.")
-    public ResponseEntity<?> editMarker(@Valid UpdateMarkerDto updateMarkerDto) {
-        markerApiService.editMarker(updateMarkerDto);
+    public ResponseEntity<?> updateMarker(@Valid UpdateMarkerDto updateMarkerDto) {
+
+        if (imageValidator.notExistFileName(updateMarkerDto.getMarkerImageFiles())) {
+            throw new BusinessException(ErrorCode.IMAGE_NOT_EXISTS);
+        }
+        if (imageValidator.duplicateImageName(updateMarkerDto.getMarkerImageFiles())){
+            throw new BusinessException(ErrorCode.DUPLICATED_IMAGE_NAME);
+        }
+
+        markerApiService.updateMarker(updateMarkerDto);
 
         return ResponseEntity.ok("ok");
     }

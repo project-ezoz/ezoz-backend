@@ -36,4 +36,14 @@ public class MarkerService {
         return markerRepository.findByIdFetchImage(markerId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MARKER_NOT_EXISTS));
     }
+
+    public Marker findByIdForES(Long markerId) {
+        return markerSearchRepository.findById(markerId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MARKER_NOT_EXISTS));
+    }
+
+    public void saveEsEntity(Marker marker) {
+        markerSearchRepository.save(marker);
+    }
+
 }
