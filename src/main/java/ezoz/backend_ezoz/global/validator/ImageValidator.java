@@ -32,8 +32,8 @@ public class ImageValidator {
         Set<String> fileNameSet = new HashSet<>();
 
         for (MultipartFile multipartFile : multipartFiles) {
-            if (!fileNameSet.contains(multipartFile.getName())) {
-                fileNameSet.add(multipartFile.getName());
+            if (!fileNameSet.contains(multipartFile.getOriginalFilename())) {
+                fileNameSet.add(multipartFile.getOriginalFilename());
             } else return true;
         }
 

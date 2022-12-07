@@ -82,7 +82,7 @@ public class MarkerApiService {
         Location esLocation = esMarker.getLocation();
         if (StringUtils.hasText(updateMarkerDto.getCoordinate())) {
             jpaLocation.updateCoordinate(updateMarkerDto.getCoordinate());
-            esLocation.updateAddress(updateMarkerDto.getCoordinate());
+            esLocation.updateCoordinate(updateMarkerDto.getCoordinate());
         }
         if (StringUtils.hasText(updateMarkerDto.getAddress())) {
             jpaLocation.updateAddress(updateMarkerDto.getAddress());
@@ -100,19 +100,18 @@ public class MarkerApiService {
         }
 
         markerService.saveEsEntity(esMarker);
-        updateMarkerImage(jpaMarker, updateMarkerDto);
+        updateMarkerImage(jpaMarker, updateMarkerDto.getMarkerImageFiles());
 
     }
 
-    private void updateMarkerImage(Marker marker, UpdateMarkerDto updateMarkerDto) {
+    private void updateMarkerImage(Marker marker,  List<MultipartFile> updateMarkerImageFiles) {
 
         List<MarkerImage> originalMarkerImages = marker.getMarkerImages();
-        List<MultipartFile> updateMarkerImageFiles = updateMarkerDto.getMarkerImageFiles();
 
         // 추가된 파일 확인하기
         for (MultipartFile updateMarkerImageFile : updateMarkerImageFiles) {
             boolean isExists = false;
-            String updateFileName = updateMarkerImageFile.getName();
+            String updateFileName = updateMarkerImageFile.getOriginalFilename();
             for (MarkerImage originalMarkerImage : originalMarkerImages) {
                 if (updateFileName.equals(originalMarkerImage.getOriginalFileName())) {
                     isExists = true;
@@ -135,14 +134,14 @@ public class MarkerApiService {
             boolean isExists = false;
             String originalFileName = originalMarkerImage.getOriginalFileName();
             for (MultipartFile updateMarkerImageFile : updateMarkerImageFiles) {
-                if (originalFileName.equals(updateMarkerImageFile.getName())) {
+                if (originalFileName.equals(updateMarkerImageFile.getOriginalFilename())) {
                     isExists = true;
                     break;
                 }
-                if (!isExists) {
-                    fileService.removeImage(originalMarkerImage.getStoreFileName());
-                    originalMarkerImages.remove(originalMarkerImage);
-                }
+            }
+            if (!isExists) {
+                fileService.removeImage(originalMarkerImage.getStoreFileName());
+                originalMarkerImages.remove(originalMarkerImage);
             }
         }
 

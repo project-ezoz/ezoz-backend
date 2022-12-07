@@ -20,7 +20,8 @@ public class CustomMarkerSearchRepositoryImpl implements CustomMarkerSearchRepos
     public List<Marker> findByKeyword(String keyword) {
         Criteria criteria = Criteria.where("title").contains(keyword)
                 .or(Criteria.where("content").contains(keyword))
-                .or(Criteria.where("author").contains(keyword));
+                .or(Criteria.where("author").contains(keyword))
+                .or(Criteria.where("location.address").contains(keyword));
 
         SearchHits<Marker> search = elasticsearchOperations.search(new CriteriaQuery(criteria), Marker.class);
 
