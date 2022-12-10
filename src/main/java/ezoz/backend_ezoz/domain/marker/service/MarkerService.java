@@ -46,4 +46,9 @@ public class MarkerService {
         markerSearchRepository.save(marker);
     }
 
+    public void deleteMarker(Long markerId) {
+        markerRepository.deleteById(markerId);
+        markerSearchRepository.deleteById(markerId);
+    }
+
 }

@@ -1,6 +1,5 @@
 package ezoz.backend_ezoz.global.validator;
 
-import ezoz.backend_ezoz.domain.marker.entity.MarkerImage;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;

@@ -68,11 +68,19 @@ public class MarkerApiController {
         if (imageValidator.notExistFileName(updateMarkerDto.getMarkerImageFiles())) {
             throw new BusinessException(ErrorCode.IMAGE_NOT_EXISTS);
         }
-        if (imageValidator.duplicateImageName(updateMarkerDto.getMarkerImageFiles())){
+        if (imageValidator.duplicateImageName(updateMarkerDto.getMarkerImageFiles())) {
             throw new BusinessException(ErrorCode.DUPLICATED_IMAGE_NAME);
         }
 
         markerApiService.updateMarker(updateMarkerDto);
+
+        return ResponseEntity.ok("ok");
+    }
+
+    @DeleteMapping("marker/{markerId}")
+    @ApiOperation(value = "마커 삭제 API", notes = "마커 id를 통해 해당하는 마커를 삭제한다.")
+    public ResponseEntity<?> deleteMarker(@PathVariable Long markerId) {
+        markerApiService.deleteMarker(markerId);
 
         return ResponseEntity.ok("ok");
     }

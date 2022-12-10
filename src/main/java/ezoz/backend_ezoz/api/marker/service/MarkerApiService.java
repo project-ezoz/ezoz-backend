@@ -104,7 +104,7 @@ public class MarkerApiService {
 
     }
 
-    private void updateMarkerImage(Marker marker,  List<MultipartFile> updateMarkerImageFiles) {
+    private void updateMarkerImage(Marker marker, List<MultipartFile> updateMarkerImageFiles) {
 
         List<MarkerImage> originalMarkerImages = marker.getMarkerImages();
 
@@ -146,5 +146,19 @@ public class MarkerApiService {
         }
 
 
+    }
+
+    public void deleteMarker(Long markerId) {
+        Marker marker = markerService.findByIdFetchImage(markerId);
+
+        deleteMarkerImage(marker.getMarkerImages());
+
+        markerService.deleteMarker(markerId);
+    }
+
+    private void deleteMarkerImage(List<MarkerImage> markerImages) {
+        for (MarkerImage markerImage : markerImages) {
+            fileService.removeImage(markerImage.getStoreFileName());
+        }
     }
 }
