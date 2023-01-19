@@ -27,7 +27,7 @@ logging:
 
 cloud:
   aws:
-    bucket: ezoz-image-bucket
+    bucket: ezoz-upload-bucket
     region:
       static: ap-northeast-2
     stack:

@@ -1,5 +1,6 @@
 package ezoz.backend_ezoz.api.marker.dto;
 
+import ezoz.backend_ezoz.domain.marker.entity.Location;
 import ezoz.backend_ezoz.domain.marker.entity.Marker;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,8 +17,11 @@ public class MarkerDetailDto {
     @ApiModelProperty(value = "마커 id", example = "1")
     private Long markerId;
 
-    @ApiModelProperty(value = "마커 좌표", example = "36.2155491 127.487786")
-    private String coordinate;
+    @ApiModelProperty(value = "마커 위도, 예) 36.2155491", required = true)
+    private String latitude;
+
+    @ApiModelProperty(value = "마커 경도, 예) 127.487786", required = true)
+    private String longitude;
 
     @ApiModelProperty(value = "마커 주소", example = "충청남도 금산군 추부면")
     private String address;
@@ -35,10 +39,14 @@ public class MarkerDetailDto {
     private List<String> markerImageUrls;
 
     public static MarkerDetailDto of(Marker marker, List<String> markerImageUrls) {
+
+        Location location = marker.getLocation();
+
         return MarkerDetailDto.builder()
                 .markerId(marker.getMarkerId())
-                .coordinate(marker.getLocation().getCoordinate())
-                .address(marker.getLocation().getAddress())
+                .latitude(location.getLongitude())
+                .longitude(location.getLongitude())
+                .address(location.getAddress())
                 .title(marker.getTitle())
                 .content(marker.getContent())
                 .author(marker.getAuthor())

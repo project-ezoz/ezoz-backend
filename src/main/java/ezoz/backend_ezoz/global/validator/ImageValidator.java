@@ -11,14 +11,14 @@ import java.util.Set;
 @Component
 public class ImageValidator {
 
-    public boolean notExistFileName(List<MultipartFile> multipartFiles) {
+    public boolean notExistFileName(List<String> markerImageKeys) {
 
-        if (multipartFiles == null) {
+        if (markerImageKeys == null) {
             return true;
         }
 
-        for (MultipartFile multipartFile : multipartFiles) {
-            if (!StringUtils.hasText(multipartFile.getOriginalFilename())) {
+        for (String markerImageKey : markerImageKeys) {
+            if (!StringUtils.hasText(markerImageKey)) {
                 return true;
             }
         }
@@ -26,13 +26,13 @@ public class ImageValidator {
         return false;
     }
 
-    public boolean duplicateImageName(List<MultipartFile> multipartFiles) {
+    public boolean duplicateImageName(List<String> markerImageKeys) {
 
         Set<String> fileNameSet = new HashSet<>();
 
-        for (MultipartFile multipartFile : multipartFiles) {
-            if (!fileNameSet.contains(multipartFile.getOriginalFilename())) {
-                fileNameSet.add(multipartFile.getOriginalFilename());
+        for (String markerImageKey : markerImageKeys) {
+            if (!fileNameSet.contains(markerImageKey)) {
+                fileNameSet.add(markerImageKey);
             } else return true;
         }
 

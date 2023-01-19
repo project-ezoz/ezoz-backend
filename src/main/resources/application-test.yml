@@ -7,3 +7,6 @@ spring:
   config:
     activate:
       on-profile: test
+
+elastic:
+  url: localhost:9200

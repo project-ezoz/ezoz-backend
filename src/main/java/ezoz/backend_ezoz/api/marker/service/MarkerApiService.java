@@ -7,20 +7,17 @@ import ezoz.backend_ezoz.domain.marker.entity.Location;
 import ezoz.backend_ezoz.domain.marker.entity.Marker;
 import ezoz.backend_ezoz.domain.marker.entity.MarkerImage;
 import ezoz.backend_ezoz.domain.marker.service.MarkerService;
-import ezoz.backend_ezoz.global.error.exception.BusinessException;
-import ezoz.backend_ezoz.global.error.exception.ErrorCode;
 import ezoz.backend_ezoz.global.jwt.TokenManager;
 import ezoz.backend_ezoz.infra.FileService;
-import ezoz.backend_ezoz.infra.UploadFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,25 +30,9 @@ public class MarkerApiService {
 
     public Long registerMarker(MarkerDto.Request markerRequestDto) {
 
-        List<MarkerImage> markerImages = new ArrayList<>();
-        registerMarkerImages(markerImages, markerRequestDto.getMarkerImageFiles());
-
-        Marker marker = markerRequestDto.toEntity("ckdgus", markerImages);
+        Marker marker = markerRequestDto.toEntity("ckdgus");
 
         return markerService.save(marker);
-    }
-
-    private void registerMarkerImages(List<MarkerImage> markerImages, List<MultipartFile> multipartFiles) {
-
-        for (MultipartFile multipartFile : multipartFiles) {
-            try {
-                UploadFile uploadFile = fileService.storeFile(multipartFile);
-                markerImages.add(uploadFile.createPostImage());
-            } catch (IOException e) {
-                throw new BusinessException(ErrorCode.FAILED_REGISTER_IMAGE, e);
-            }
-        }
-
     }
 
     public List<MarkerDto.Response> searchByKeyword(String keyword) {
@@ -62,14 +43,14 @@ public class MarkerApiService {
 
     public MarkerDetailDto getMarkerDetail(Long markerId) {
 
-        Marker jpaMarker = markerService.findByIdFetchImage(markerId);
+        Marker marker = markerService.findByIdFetchImage(markerId);
         List<String> markerImageUrls = new ArrayList<>();
-        for (MarkerImage markerImage : jpaMarker.getMarkerImages()) {
-            String imageUrl = fileService.getImageUrl(markerImage.getStoreFileName());
+        for (MarkerImage markerImage : marker.getMarkerImages()) {
+            String imageUrl = fileService.getImageUrl(markerImage.getMarkerImageKey());
             markerImageUrls.add(imageUrl);
         }
 
-        return MarkerDetailDto.of(jpaMarker, markerImageUrls);
+        return MarkerDetailDto.of(marker, markerImageUrls);
     }
 
     @Transactional
@@ -80,10 +61,17 @@ public class MarkerApiService {
 
         Location jpaLocation = jpaMarker.getLocation();
         Location esLocation = esMarker.getLocation();
-        if (StringUtils.hasText(updateMarkerDto.getCoordinate())) {
-            jpaLocation.updateCoordinate(updateMarkerDto.getCoordinate());
-            esLocation.updateCoordinate(updateMarkerDto.getCoordinate());
+
+        if (StringUtils.hasText(updateMarkerDto.getLatitude())) {
+            jpaLocation.updateLatitude(updateMarkerDto.getLatitude());
+            esLocation.updateLatitude(updateMarkerDto.getLatitude());
         }
+
+        if (StringUtils.hasText(updateMarkerDto.getLongitude())) {
+            jpaLocation.updateLongitude(updateMarkerDto.getLongitude());
+            esLocation.updateLongitude(updateMarkerDto.getLongitude());
+        }
+
         if (StringUtils.hasText(updateMarkerDto.getAddress())) {
             jpaLocation.updateAddress(updateMarkerDto.getAddress());
             esLocation.updateAddress(updateMarkerDto.getAddress());
@@ -100,51 +88,36 @@ public class MarkerApiService {
         }
 
         markerService.saveEsEntity(esMarker);
-        updateMarkerImage(jpaMarker, updateMarkerDto.getMarkerImageFiles());
+        updateMarkerImage(jpaMarker, updateMarkerDto.getMarkerImageKeys());
 
     }
 
-    private void updateMarkerImage(Marker marker, List<MultipartFile> updateMarkerImageFiles) {
+    private void updateMarkerImage(Marker marker, List<String> updateMarkerImageKeys) {
 
         List<MarkerImage> originalMarkerImages = marker.getMarkerImages();
+        Set<String> originalMarkerImagesSet = new HashSet<>();
+        for (MarkerImage originalMarkerImage : originalMarkerImages) {
+            originalMarkerImagesSet.add(originalMarkerImage.getMarkerImageKey());
+        }
+
+        Set<String> updateMarkerImageKeysSet = new HashSet<>(updateMarkerImageKeys);
 
         // 추가된 파일 확인하기
-        for (MultipartFile updateMarkerImageFile : updateMarkerImageFiles) {
-            boolean isExists = false;
-            String updateFileName = updateMarkerImageFile.getOriginalFilename();
-            for (MarkerImage originalMarkerImage : originalMarkerImages) {
-                if (updateFileName.equals(originalMarkerImage.getOriginalFileName())) {
-                    isExists = true;
-                    break;
-                }
-            }
-            if (!isExists) {
-                try {
-                    UploadFile uploadFile = fileService.storeFile(updateMarkerImageFile);
-                    originalMarkerImages.add(
-                            new MarkerImage(uploadFile.getOriginalFileName(), uploadFile.getStoreFileName()));
-                } catch (IOException e) {
-                    throw new BusinessException(ErrorCode.FAILED_REGISTER_IMAGE);
-                }
+        for (String updateMarkerImageKey : updateMarkerImageKeysSet) {
+            if (!originalMarkerImagesSet.contains(updateMarkerImageKey)) {
+                MarkerImage updateMarkerImage = MarkerImage.builder()
+                        .markerImageKey(updateMarkerImageKey)
+                        .build();
+                originalMarkerImages.add(updateMarkerImage);
             }
         }
 
         // 제거된 파일 확인하기
         for (MarkerImage originalMarkerImage : originalMarkerImages) {
-            boolean isExists = false;
-            String originalFileName = originalMarkerImage.getOriginalFileName();
-            for (MultipartFile updateMarkerImageFile : updateMarkerImageFiles) {
-                if (originalFileName.equals(updateMarkerImageFile.getOriginalFilename())) {
-                    isExists = true;
-                    break;
-                }
-            }
-            if (!isExists) {
-                fileService.removeImage(originalMarkerImage.getStoreFileName());
+            if (!updateMarkerImageKeysSet.contains(originalMarkerImage.getMarkerImageKey())) {
                 originalMarkerImages.remove(originalMarkerImage);
             }
         }
-
 
     }
 
@@ -158,7 +131,7 @@ public class MarkerApiService {
 
     private void deleteMarkerImage(List<MarkerImage> markerImages) {
         for (MarkerImage markerImage : markerImages) {
-            fileService.removeImage(markerImage.getStoreFileName());
+            fileService.removeImage(markerImage.getMarkerImageKey());
         }
     }
 }

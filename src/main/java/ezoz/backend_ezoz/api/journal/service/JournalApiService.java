@@ -10,7 +10,6 @@ import ezoz.backend_ezoz.global.error.exception.BusinessException;
 import ezoz.backend_ezoz.global.error.exception.ErrorCode;
 import ezoz.backend_ezoz.global.jwt.TokenManager;
 import ezoz.backend_ezoz.infra.FileService;
-import ezoz.backend_ezoz.infra.UploadFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,24 +29,24 @@ public class JournalApiService {
     public Long registerJournal(JournalDto.Request journalRequestDto) {
 
         List<JournalImage> journalImages = new ArrayList<>();
-        registerJournalImages(journalImages, journalRequestDto.getJournalImageFiles());
+//        registerJournalImages(journalImages, journalRequestDto.getJournalImageFiles());
 
         Journal journal = journalRequestDto.toEntity("ckdgus", journalImages);
 
         return journalService.save(journal);
     }
 
-    private void registerJournalImages(List<JournalImage> journalImages, List<MultipartFile> multipartFiles) {
-
-        for (MultipartFile multipartFile : multipartFiles) {
-            try {
-                UploadFile uploadFile = fileService.storeFile(multipartFile);
-                journalImages.add(uploadFile.createJournalImage());
-            } catch (IOException e) {
-                throw new BusinessException(ErrorCode.FAILED_REGISTER_IMAGE);
-            }
-        }
-    }
+//    private void registerJournalImages(List<JournalImage> journalImages, List<MultipartFile> multipartFiles) {
+//
+//        for (MultipartFile multipartFile : multipartFiles) {
+//            try {
+//                UploadFile uploadFile = fileService.storeFile(multipartFile);
+//                journalImages.add(uploadFile.createJournalImage());
+//            } catch (IOException e) {
+//                throw new BusinessException(ErrorCode.FAILED_REGISTER_IMAGE);
+//            }
+//        }
+//    }
 
     public List<JournalDto.Response> searchByKeywordWithPaging(String keyword, String type, int page) {
 

@@ -11,12 +11,18 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Location {
 
-    private String coordinate;
+    private String latitude;
+
+    private String longitude;
 
     private String address;
 
-    public void updateCoordinate(String coordinate) {
-        this.coordinate = coordinate;
+    public void updateLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public void updateLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public void updateAddress(String address) {

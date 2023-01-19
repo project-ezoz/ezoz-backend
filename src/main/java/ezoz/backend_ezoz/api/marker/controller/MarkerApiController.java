@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -35,10 +34,11 @@ public class MarkerApiController {
 //        String authorizationHeader = httpServletRequest.getHeader("Authorization");
 //        String accessToken = authorizationHeader.split(" ")[1];
 
-        List<MultipartFile> markerImageFiles = markerRequestDto.getMarkerImageFiles();
-        if (imageValidator.notExistFileName(markerImageFiles)) {
+        List<String> markerImageKeys = markerRequestDto.getMarkerImageKeys();
+        if (imageValidator.notExistFileName(markerImageKeys)) {
             throw new BusinessException(ErrorCode.IMAGE_NOT_EXISTS);
         }
+
         Long saveId = markerApiService.registerMarker(markerRequestDto);
 
         return ResponseEntity.ok(saveId);
@@ -65,10 +65,12 @@ public class MarkerApiController {
     @ApiOperation(value = "마커 수정 API", notes = "수정된 데이터 요청에 따라 마커를 변경한다.")
     public ResponseEntity<?> updateMarker(@Valid UpdateMarkerDto updateMarkerDto) {
 
-        if (imageValidator.notExistFileName(updateMarkerDto.getMarkerImageFiles())) {
+        List<String> updateMarkerImageKeys = updateMarkerDto.getMarkerImageKeys();
+
+        if (imageValidator.notExistFileName(updateMarkerImageKeys)) {
             throw new BusinessException(ErrorCode.IMAGE_NOT_EXISTS);
         }
-        if (imageValidator.duplicateImageName(updateMarkerDto.getMarkerImageFiles())) {
+        if (imageValidator.duplicateImageName(updateMarkerImageKeys)) {
             throw new BusinessException(ErrorCode.DUPLICATED_IMAGE_NAME);
         }
 

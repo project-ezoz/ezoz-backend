@@ -1,18 +1,20 @@
 package ezoz.backend_ezoz.infra;
 
+import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.Headers;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class FileService {
 
@@ -21,33 +23,33 @@ public class FileService {
 
     private final AmazonS3Client amazonS3Client;
 
-    public UploadFile storeFile(MultipartFile multipartFile) throws IOException {
-        if (multipartFile.isEmpty()) {
-            return null;
-        }
+    public String getPresignedUrl() {
 
-        String originalFilename = multipartFile.getOriginalFilename();
-        String storeFileName = UUID.randomUUID().toString();
-        ObjectMetadata objectMetadata =
-                createObjectMetadata(multipartFile.getContentType(), multipartFile.getSize());
+        String fileName = UUID.randomUUID().toString();
 
-        amazonS3Client.putObject(
-                new PutObjectRequest(S3Bucket, storeFileName, multipartFile.getInputStream(), objectMetadata)
-                        .withCannedAcl(CannedAccessControlList.PublicRead)
-        );
+        GeneratePresignedUrlRequest generatePresignedUrlRequest  =
+                new GeneratePresignedUrlRequest(S3Bucket, fileName)
+                .withMethod(HttpMethod.PUT)
+                .withExpiration(getExpirationDate());
 
+        generatePresignedUrlRequest.addRequestParameter(
+                Headers.S3_CANNED_ACL,
+                CannedAccessControlList.PublicRead.toString());
 
-        return new UploadFile(originalFilename, storeFileName);
+        String presignedUrl = amazonS3Client.generatePresignedUrl(generatePresignedUrlRequest).toString();
 
+        return presignedUrl;
     }
 
-    private ObjectMetadata createObjectMetadata(String contentType, long contentLength) {
+    public Date getExpirationDate() {
 
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentType(contentType);
-        objectMetadata.setContentLength(contentLength);
+        Date expiration = new Date();
 
-        return objectMetadata;
+        long expirationTime = expiration.getTime();
+        expirationTime += 1000 * 60 * 60;
+        expiration.setTime(expirationTime);
+
+        return expiration;
     }
 
     public void removeImage(String fileName) {
@@ -57,6 +59,5 @@ public class FileService {
     public String getImageUrl(String fileName) {
         return amazonS3Client.getUrl(S3Bucket, fileName).toString();
     }
-
 
 }

@@ -14,15 +14,12 @@ public class MarkerImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long postImageId;
+    private Long markerImageId;
 
-    private String originalFileName; // 원본 파일 이름
-
-    private String storeFileName; // 저장된 파일 이름
+    private String markerImageKey;
 
     @Builder
-    public MarkerImage(String originalFileName, String storeFileName) {
-        this.originalFileName = originalFileName;
-        this.storeFileName = storeFileName;
+    public MarkerImage(String markerImageKey) {
+        this.markerImageKey = markerImageKey;
     }
 }
