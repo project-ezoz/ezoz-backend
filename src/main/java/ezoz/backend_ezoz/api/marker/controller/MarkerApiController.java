@@ -27,9 +27,9 @@ public class MarkerApiController {
     private final MarkerApiService markerApiService;
     private final ImageValidator imageValidator;
 
-    @PostMapping(value = "/marker", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/marker", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "마커 생성 API", notes = "마커를 새로 등록한다.")
-    public ResponseEntity<?> registerPost(@Valid MarkerDto.Request markerRequestDto, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<?> registerPost(@Valid @RequestBody MarkerDto.Request markerRequestDto, HttpServletRequest httpServletRequest) {
 
 //        String authorizationHeader = httpServletRequest.getHeader("Authorization");
 //        String accessToken = authorizationHeader.split(" ")[1];
