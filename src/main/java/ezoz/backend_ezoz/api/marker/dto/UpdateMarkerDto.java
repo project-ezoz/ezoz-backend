@@ -4,14 +4,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter @Setter
 public class UpdateMarkerDto {
-
-    @NotNull
-    private Long markerId;
 
     @ApiModelProperty(value = "마커 위도, 예) 36.2155491", required = true)
     private String latitude;

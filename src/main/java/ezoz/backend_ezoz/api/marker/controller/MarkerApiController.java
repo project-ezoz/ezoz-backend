@@ -61,9 +61,9 @@ public class MarkerApiController {
         return ResponseEntity.ok(markerDetail);
     }
 
-    @PutMapping("/marker")
+    @PutMapping(value = "/marker/{markerId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "마커 수정 API", notes = "수정된 데이터 요청에 따라 마커를 변경한다.")
-    public ResponseEntity<?> updateMarker(@Valid UpdateMarkerDto updateMarkerDto) {
+    public ResponseEntity<?> updateMarker(@PathVariable Long markerId, @Valid @RequestBody UpdateMarkerDto updateMarkerDto) {
 
         List<String> updateMarkerImageKeys = updateMarkerDto.getMarkerImageKeys();
 
@@ -74,7 +74,7 @@ public class MarkerApiController {
             throw new BusinessException(ErrorCode.DUPLICATED_IMAGE_NAME);
         }
 
-        markerApiService.updateMarker(updateMarkerDto);
+        markerApiService.updateMarker(markerId, updateMarkerDto);
 
         return ResponseEntity.ok("ok");
     }

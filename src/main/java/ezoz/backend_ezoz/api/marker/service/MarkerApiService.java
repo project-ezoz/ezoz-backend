@@ -54,10 +54,10 @@ public class MarkerApiService {
     }
 
     @Transactional
-    public void updateMarker(UpdateMarkerDto updateMarkerDto) {
+    public void updateMarker(Long markerId, UpdateMarkerDto updateMarkerDto) {
 
-        Marker jpaMarker = markerService.findByIdFetchImage(updateMarkerDto.getMarkerId());
-        Marker esMarker = markerService.findByIdForES(updateMarkerDto.getMarkerId());
+        Marker jpaMarker = markerService.findByIdFetchImage(markerId);
+        Marker esMarker = markerService.findByIdForES(markerId);
 
         Location jpaLocation = jpaMarker.getLocation();
         Location esLocation = esMarker.getLocation();
