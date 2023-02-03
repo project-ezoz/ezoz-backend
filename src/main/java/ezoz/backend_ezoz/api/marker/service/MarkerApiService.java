@@ -1,5 +1,6 @@
 package ezoz.backend_ezoz.api.marker.service;
 
+import ezoz.backend_ezoz.api.marker.dto.MarkerCoordinate;
 import ezoz.backend_ezoz.api.marker.dto.MarkerDetailDto;
 import ezoz.backend_ezoz.api.marker.dto.MarkerDto;
 import ezoz.backend_ezoz.api.marker.dto.UpdateMarkerDto;
@@ -53,6 +54,7 @@ public class MarkerApiService {
         return MarkerDetailDto.of(marker, markerImageUrls);
     }
 
+    // TODO: 2023. 2. 3. 변경된 건에 대하여 어떤식으로 코드를 구성할지 고민 중
     @Transactional
     public void updateMarker(Long markerId, UpdateMarkerDto updateMarkerDto) {
 
@@ -62,27 +64,27 @@ public class MarkerApiService {
         Location jpaLocation = jpaMarker.getLocation();
         Location esLocation = esMarker.getLocation();
 
-        if (StringUtils.hasText(updateMarkerDto.getLatitude())) {
+        if (!jpaMarker.getLocation().getLatitude().equals(updateMarkerDto.getLatitude())) {
             jpaLocation.updateLatitude(updateMarkerDto.getLatitude());
             esLocation.updateLatitude(updateMarkerDto.getLatitude());
         }
 
-        if (StringUtils.hasText(updateMarkerDto.getLongitude())) {
+        if (!jpaMarker.getLocation().getLongitude().equals(updateMarkerDto.getLongitude())) {
             jpaLocation.updateLongitude(updateMarkerDto.getLongitude());
             esLocation.updateLongitude(updateMarkerDto.getLongitude());
         }
 
-        if (StringUtils.hasText(updateMarkerDto.getAddress())) {
+        if (!jpaMarker.getLocation().getAddress().equals(updateMarkerDto.getAddress())) {
             jpaLocation.updateAddress(updateMarkerDto.getAddress());
             esLocation.updateAddress(updateMarkerDto.getAddress());
         }
 
-        if (StringUtils.hasText(updateMarkerDto.getTitle())) {
+        if (!jpaMarker.getTitle().equals(updateMarkerDto.getTitle())) {
             jpaMarker.updateTitle(updateMarkerDto.getTitle());
             esMarker.updateTitle(updateMarkerDto.getTitle());
         }
 
-        if (StringUtils.hasText(updateMarkerDto.getContent())) {
+        if (!jpaMarker.getContent().equals(updateMarkerDto.getContent())) {
             jpaMarker.updateContent(updateMarkerDto.getContent());
             esMarker.updateContent(updateMarkerDto.getContent());
         }
@@ -134,4 +136,11 @@ public class MarkerApiService {
             fileService.removeImage(markerImage.getMarkerImageKey());
         }
     }
+
+    public List<MarkerDto.Response> findMarkersByCoordinate(MarkerCoordinate markerCoordinate) {
+        return markerService.findByCoordinate(markerCoordinate).stream()
+                .map(MarkerDto.Response::from)
+                .collect(Collectors.toList());
+    }
+
 }

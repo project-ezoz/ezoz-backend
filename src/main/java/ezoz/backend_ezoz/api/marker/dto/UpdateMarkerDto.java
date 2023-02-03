@@ -10,10 +10,10 @@ import java.util.List;
 public class UpdateMarkerDto {
 
     @ApiModelProperty(value = "마커 위도, 예) 36.2155491", required = true)
-    private String latitude;
+    private Double latitude;
 
     @ApiModelProperty(value = "마커 경도, 예) 127.487786", required = true)
-    private String longitude;
+    private Double longitude;
 
     @ApiModelProperty(value = "마커 주소")
     private String address;

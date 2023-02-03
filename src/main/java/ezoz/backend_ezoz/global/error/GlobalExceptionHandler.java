@@ -5,6 +5,7 @@ import ezoz.backend_ezoz.global.error.exception.FeignClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import javax.validation.UnexpectedTypeException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class GlobalExceptionHandler {
         }
 
         ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.BAD_REQUEST, errorMessages);
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
@@ -49,6 +52,7 @@ public class GlobalExceptionHandler {
         log.error("handleMethodArgumentTypeMismatchException", e);
         List<String> errorMessages = List.of(e.getMessage());
         ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.BAD_REQUEST, errorMessages);
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
@@ -60,6 +64,7 @@ public class GlobalExceptionHandler {
         log.error("handleHttpRequestMethodNotSupportedException", e);
         List<String> errorMessages = List.of(e.getMessage());
         ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.METHOD_NOT_ALLOWED, errorMessages);
+
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(errorResponse);
     }
 
@@ -72,6 +77,7 @@ public class GlobalExceptionHandler {
         List<String> errorMessages = List.of(e.getMessage());
         HttpStatus httpStatus = HttpStatus.valueOf(e.getStatus());
         ErrorResponse errorResponse = ErrorResponse.of(httpStatus, errorMessages);
+
         return ResponseEntity.status(httpStatus).body(errorResponse);
     }
 
@@ -83,9 +89,30 @@ public class GlobalExceptionHandler {
         log.error("FeignClientException", e);
         List<String> errorMessages = List.of(e.getMessage());
         HttpStatus httpStatus = HttpStatus.valueOf(e.getStatus());
-
         ErrorResponse errorResponse = ErrorResponse.of(httpStatus, errorMessages);
+
         return ResponseEntity.status(httpStatus).body(errorResponse);
+    }
+
+    @ExceptionHandler(UnexpectedTypeException.class)
+    protected ResponseEntity<ErrorResponse> handleUnexpectedTypeException(UnexpectedTypeException e) {
+        log.error("UnexpectedTypeException", e);
+        List<String> errorMessages = List.of(e.getMessage());
+        ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.BAD_REQUEST, errorMessages);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    /**
+     * HttpMessageNotReadableException 예외 발생
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    protected ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        log.error("HttpMessageNotReadableException", e);
+        List<String> errorMessages = List.of(e.getMessage());
+        ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.BAD_REQUEST, errorMessages);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     /**
@@ -93,9 +120,11 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponse> handleException(Exception e) {
+
         log.error("Exception", e);
         List<String> errorMessages = List.of(e.getMessage());
         ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, errorMessages);
+
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
 }

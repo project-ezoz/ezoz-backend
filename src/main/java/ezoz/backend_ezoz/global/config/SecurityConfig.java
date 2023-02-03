@@ -30,7 +30,7 @@ public class SecurityConfig {
                     "/google/login", "/auth/google", "/google/code", "/auth/google/callback",
                     "/api/subscription",
                     "/upload/**",
-                    "/marker/**", "/journal/**",
+                    "/marker/**", "/markers", "/journal/**",
                     "/favicon.ico", "/error", "/health",
                     "/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**"};
 

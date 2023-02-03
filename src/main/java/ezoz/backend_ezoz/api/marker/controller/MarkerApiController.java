@@ -1,9 +1,11 @@
 package ezoz.backend_ezoz.api.marker.controller;
 
+import ezoz.backend_ezoz.api.marker.dto.MarkerCoordinate;
 import ezoz.backend_ezoz.api.marker.dto.MarkerDetailDto;
 import ezoz.backend_ezoz.api.marker.dto.MarkerDto;
 import ezoz.backend_ezoz.api.marker.dto.UpdateMarkerDto;
 import ezoz.backend_ezoz.api.marker.service.MarkerApiService;
+import ezoz.backend_ezoz.domain.marker.entity.Marker;
 import ezoz.backend_ezoz.global.error.exception.BusinessException;
 import ezoz.backend_ezoz.global.error.exception.ErrorCode;
 import ezoz.backend_ezoz.global.validator.ImageValidator;
@@ -79,11 +81,19 @@ public class MarkerApiController {
         return ResponseEntity.ok("ok");
     }
 
-    @DeleteMapping("marker/{markerId}")
+    @DeleteMapping("/marker/{markerId}")
     @ApiOperation(value = "마커 삭제 API", notes = "마커 id를 통해 해당하는 마커를 삭제한다.")
     public ResponseEntity<?> deleteMarker(@PathVariable Long markerId) {
         markerApiService.deleteMarker(markerId);
 
         return ResponseEntity.ok("ok");
+    }
+
+    @GetMapping(value = "/markers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "지도상의 마커 조회 API", notes = "보내온 좌표에 맞는 마커를 제공한다.")
+    public ResponseEntity<List<MarkerDto.Response>> findMarkersByCoordinate(@RequestBody MarkerCoordinate markerCoordinate) {
+        List<MarkerDto.Response> findMarkers = markerApiService.findMarkersByCoordinate(markerCoordinate);
+
+        return ResponseEntity.ok(findMarkers);
     }
 }

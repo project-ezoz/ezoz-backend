@@ -1,5 +1,6 @@
 package ezoz.backend_ezoz.domain.marker.service;
 
+import ezoz.backend_ezoz.api.marker.dto.MarkerCoordinate;
 import ezoz.backend_ezoz.domain.marker.entity.Marker;
 import ezoz.backend_ezoz.domain.marker.repository.MarkerRepository;
 import ezoz.backend_ezoz.domain.marker.repository.elasticsearch.MarkerSearchRepository;
@@ -49,6 +50,10 @@ public class MarkerService {
     public void deleteMarker(Long markerId) {
         markerRepository.deleteById(markerId);
         markerSearchRepository.deleteById(markerId);
+    }
+
+    public List<Marker> findByCoordinate(MarkerCoordinate markerCoordinate) {
+        return markerRepository.findByCoordinate(markerCoordinate);
     }
 
 }

@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +22,13 @@ public class MarkerDto {
     @ApiModel(value = "마커 생성 API 요청 값", description = "마커 생성에 필요한 값입니다.")
     public static class Request {
 
-        @NotBlank
+        @NotNull
         @ApiModelProperty(value = "마커 위도, 예) 36.2155491", required = true)
-        private String latitude;
+        private Double latitude;
 
-        @NotBlank
+        @NotNull
         @ApiModelProperty(value = "마커 경도, 예) 127.487786", required = true)
-        private String longitude;
+        private Double longitude;
 
         @NotBlank
         @ApiModelProperty(value = "마커 주소", required = true)
@@ -76,10 +77,10 @@ public class MarkerDto {
         private Long markerId;
 
         @ApiModelProperty(value = "마커 위도, 예) 36.2155491", required = true)
-        private String latitude;
+        private Double latitude;
 
         @ApiModelProperty(value = "마커 경도, 예) 127.487786", required = true)
-        private String longitude;
+        private Double longitude;
 
         public static MarkerDto.Response from(Marker marker) {
             Location location = marker.getLocation();

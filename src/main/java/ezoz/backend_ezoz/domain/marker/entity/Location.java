@@ -11,17 +11,17 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Location {
 
-    private String latitude;
+    private Double latitude;
 
-    private String longitude;
+    private Double longitude;
 
     private String address;
 
-    public void updateLatitude(String latitude) {
+    public void updateLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public void updateLongitude(String longitude) {
+    public void updateLongitude(Double longitude) {
         this.longitude = longitude;
     }
 

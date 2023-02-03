@@ -18,10 +18,10 @@ public class MarkerDetailDto {
     private Long markerId;
 
     @ApiModelProperty(value = "마커 위도, 예) 36.2155491", required = true)
-    private String latitude;
+    private Double latitude;
 
     @ApiModelProperty(value = "마커 경도, 예) 127.487786", required = true)
-    private String longitude;
+    private Double longitude;
 
     @ApiModelProperty(value = "마커 주소", example = "충청남도 금산군 추부면")
     private String address;
@@ -44,7 +44,7 @@ public class MarkerDetailDto {
 
         return MarkerDetailDto.builder()
                 .markerId(marker.getMarkerId())
-                .latitude(location.getLongitude())
+                .latitude(location.getLatitude())
                 .longitude(location.getLongitude())
                 .address(location.getAddress())
                 .title(marker.getTitle())
