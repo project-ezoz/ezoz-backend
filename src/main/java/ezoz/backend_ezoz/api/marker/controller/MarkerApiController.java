@@ -89,7 +89,7 @@ public class MarkerApiController {
         return ResponseEntity.ok("ok");
     }
 
-    @GetMapping(value = "/markers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/markers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "지도상의 마커 조회 API", notes = "보내온 좌표에 맞는 마커를 제공한다.")
     public ResponseEntity<List<MarkerDto.Response>> findMarkersByCoordinate(@RequestBody MarkerCoordinate markerCoordinate) {
         List<MarkerDto.Response> findMarkers = markerApiService.findMarkersByCoordinate(markerCoordinate);
