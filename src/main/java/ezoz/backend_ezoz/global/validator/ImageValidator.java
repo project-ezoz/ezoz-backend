@@ -17,6 +17,10 @@ public class ImageValidator {
             return true;
         }
 
+        if (markerImageKeys.size() == 0) {
+            return true;
+        }
+
         for (String markerImageKey : markerImageKeys) {
             if (!StringUtils.hasText(markerImageKey)) {
                 return true;
